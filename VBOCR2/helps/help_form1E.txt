@@ -1,0 +1,39 @@
+Generate text file extracting text from image document file created by scanner device.
+English Document can be extracted.
+Windows app "Windows Fax and Scan" can be used to create image file. 
+
+Requirement：Extrancting text from image file uses "Microsoft OCR Library for Windows",
+             Windows10 Novenber update(2015/11:Version1511) is required.
+
+Starting by Menu:"File" --> "Open Image file", then "Extract" on ImageFile Form.
+
+Long line is folded.
+"⏎" is CRLF sign.
+Lines are concatinated by deleting CRLF sign.
+
+Start by Menu:"Open Text file" if you heve text file to be corrected.
+
+("Microsoft Office Document Imaging" or "MicrosoftOffice Document Scanning"
+also enable to scan documents and save to image file, and send extracted text string to "Microsoft Word".)
+"Microsoft OneNote"(Free) also supports extracting text from document file.
+
+Click MouseRight button for popup context menu.
+It enables CutAndPaste, open Find/Replace dialog and ReplacePredefinedLetter dialog.
+Following shortcut key is available
+F3       :open Find/Replace and FindNext
+Shift+F3 :find next backward
+F2       :"Replace" by setting on Find/Replace dialog.
+(Specify " " as SearchWord to search spacechar (0x20),
+leave RepWord as null to replace to drop SearchWord.)
+
+Settings:setup followings.
+  Font(Screen and Print)
+  Function key of shortcut of Letter Replacement
+  (e.g.あ<->ぁ,ロ(katakana:ro)<-->口(kanji:mouth)
+  Function key of voiced kana letter exchange
+  (e.g.は(ha)<-->ば(ba)<-->ぱ(pa))
+  Function key to open Dialogs((FrequentlyUsed)Words,FindAndReplace,PrelacePreDefinedLetter)
+  Language of Label/Messages.(App Restart required)
+  For details, see "Help" of "Settings" dialog.
+
+(Form1E) 2018/03/08

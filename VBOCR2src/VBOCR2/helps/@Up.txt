@@ -1,0 +1,40 @@
+How to Up
+================================================= g:\src\xe\up.txt
+update SetupProoject\Product.wxs by WixEdit
+ if copyed from VBI2KWRT change productid and Upgrade code
+    if not install fail by newer version already installed
+ chk also My Project\AssemblyInfo.vb, <Assembly: Guid 
+================================================= g:\src\xe\up.txt
+VBOCR2 GitHub
+    update W:\\msvs2017CProjects\VBOCR2\VBOCR2\helps\README's
+	copy /c and rename
+	  rename w:\gitLocalOld\VBOCR2-->*.Vxxx (copy /c and rename)
+	  xcopy w:\gitLocal\VBOCR2-->w:\gitLocalOld
+    set Version
+        change version My Project\AssemblyInfo.vb, SetupProject\Product.wxs:Vesion, Minimum,Maximum
+        Form1 Const VERSION
+    release build
+    build SetupVBOCR2      -->SetupProject\bin\Release\SetupVBOCR2.msi
+	bat\vbocr2upsrc.bat
+        msvs2017CProjects\VBOOCR2 -> msvs2017CProjects\Release\VBOCR2src\VBOCR2 and VBOCR2src.zip
+
+    bat\vbiocr2gitup.bat
+        (after vbocr2upsrc.bat)
+
+        xcopy w:\msvs2017CPpjects\Release\VBOCR2src     w:\gitLocal\VBOCR2src
+        copy  w:\msvs2010CPpjects\Release\VBOCR2src.zip w:\gitLocal\VBOCR2\
+        copy  w:\msvs2010CPpjects\SetupVBOCR2\bin\release\SetupVBOCR2.msi ->Release, w:\gitLocal\VBOCR2
+
+        ==>execute SetupVBOCR2.msi and chk version
+
+    push to git@github.com:sakachin2/VBOCR2.git by GitGUI StateChanged, Commit with commit Message
+
+    Vector
+        update registration.txt in helps
+        rename W:\gitlocal\VBOCR2.vector\VBOCR2.vector.zip VBOCR2.vectorzip.Vxxx
+		bat\vbocr2vectorup.bat
+    		(after vbocr2gitup.bat)
+        	at W:\GitLocal\VBOCR2.vector
+        	zip VBOCR2vector VBOCR2.zip registration.txt
+        upload  VBOCR2vector.zip
+        	after login,online update 

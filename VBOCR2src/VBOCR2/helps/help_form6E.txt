@@ -1,0 +1,58 @@
+This dialog expands replacement by "Japanese Letter Replacement Key"(Default F5)
+over default translation cases shown bellow.
+Press F5 when cursor is on the character to be replaced.
+  Specify at least 2 characters in "Translation" column.
+  Semicolon(;) is not available.
+  e.g.) '"<              : (')-->(")-->(<)-->(').
+  If char is defined duplicated to default cases shown on "Help" of "Settings",
+  definition in this dialog is applied.
+  /str1/str2/ format allows string translation, no reverse replacement is done for strings.
+  str1,str2 may contains space char.
+  e.g) (F5 is default functio key, changable on "Settings" dialog)
+       -!                     : By F5, (-)-->(!)-->(-)
+       /:/.../                : By F5, (:)-->(...)
+       /"/</                  : By F5, (")-->(<)  
+       /"/>/     (+shift On)  : By Shift+F5, (")-->(<)
+       /、つ/う/              : By F5, (、つ)-->(う)
+
+  If duplicated with following default, default is ignored.
+  Use "Use" checkbox to set on/off temporally.
+  The line with "Shift":On is applied when PF key is pressed with Shift modifier.
+  The line with "Del":On is deleted when dialog closed by "OK".
+-----
+Folowins are applied as default.
+    "あいうえおやゆよつわかけ" <--> "ぁぃぅぇぉゃゅょっゎゕゖ"     Hiragana
+    "アイウエオヤユヨツワカケ" <--> "ァィゥェォャュョッヮヵヶ"     Katakana(DBCS)
+    "ｱｲｳｴｵﾔﾕﾖﾂ"                <--> "ｧｨｩｪｫｬｭｮｯ"                    Katakana(SBCS)
+
+  By the same key, following replacemnt will be down, which sometimes cause mis-reading of image.
+    リ(katakana)    <--> り(hiragana)
+    ヘ(katakana)    <--> へ(hiragana)
+    ベ(katakana)    <--> べ(hiragana)
+    ソ(katakana:so) <--> ン(katakana:n)
+  On Kanji text form, following replacement will be done including kanji char.
+    工(kanji) --> エ(katakana) --> ェ(katakana-small) --> 工(kanji)   (WrapAround)
+    力(kanji) --> カ(katakana) --> ヵ(katakana-small) --> 力(kanji)   (WrapAround)
+    一(kanji) --> ー(katakana) --> ─(HorizontalBar) --> 一(kanji)    (WrapAround)
+    夕(kanji) <--> タ(katakana)                                       
+    二(kanji) <--> ニ(katakana) 
+    八(kanji) <--> ハ(katakana) 
+    口(kanji) <--> ロ(katakana) 
+    十(kanji) <--> ＋(Plus) 
+
+  By the key with Shift modifier kety,following replacement will be done.
+    は<-->わ、へ<-->え、う<-->ー(u30fc)
+--------------------------------------------------------------------------
+ToolBarButtons Open/Save/SaveAS is to load/save the settiog of this dialog.
+Use for exchanging setting for each document differently.
+You may save to appropriate folder if updated because program reinstallation loose it.
+Record format is as following, line terminater is 0x0d0a,
+default extension is ".trn" です
+  n;m;Translation (n-'1':Use, '0':NotUse; m- '1':with Shift, '0':without Shift)
+
+Use Mouse Right button for Copy & Paste
+not when cell is highlightened but when string is highlightened.
+Cut/CopyPaste buttons bellow title are used to copy/move row.
+"Paste" inserts row before the selected row(Delete flag is not copied). 
+
+(Form6E) 2020/01/28

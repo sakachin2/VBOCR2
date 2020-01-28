@@ -1,0 +1,8 @@
+Partially extracted Text in the clipped Box.
+
+Copy then Paste to Main form.
+Or, OK button sends all text or reversed part to the Main form.
+Set caret at insert position on target form in advance by mouse.
+If taret is reversed the range will be replaced.
+
+(Form15E) 2018/03/04

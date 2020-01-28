@@ -1,0 +1,17 @@
+Text of Extracted from Document Image file
+Adjust mis-recognition in extraction.
+Long line is shown folded.
+User Enter key to split line,
+delete EndOfLine sign(⏎) to concatinate lines.
+
+Mouse Right Button click popup context menu.
+Open Cut-and-Paste, Find/Replace, ShortcutInputDefinitionForWordsAppearsFrequetly,
+DefininitionOfStringReplaceByF5.
+
+Shortcut key:
+  F3      :Open Find/Replace Dialog,Find Next
+  Shift+F3:Find Next upward
+  F2      :"Replace" by Find/Replace Dialog.
+  Shift+F2:Replace upward
+
+(Form3E) 2020/01/27

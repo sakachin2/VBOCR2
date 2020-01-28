@@ -1,0 +1,18 @@
+Windows10 で イメージ文書からテキストを読み取る
+
+[内容説明(2,000バイト=全角1,000文字以内)]
+Windows10:Microsoft OCR Library for Windows を利用して
+スキャナーで読み取ったイメージファイルからテキストを読み取ります
+画像の傾き補正、マウスで囲んだ部分の読み取り、をサポート
+誤認識対応として、頻出語のショートカット入力、
+濁音欠落、大文字小文字読み違いも1キー操作で修正
+
+文書読み取り機能は OCR engine:"Microsoft OCR Llibrary for Windows"を使用、
+Windows10 Version 1511 (2015/11)以降が必要です
+.Net Framework は 4.6.1
+
+解凍してSetupVBOCR2.msiをクリックしてインストール(デスクトップにアイコン作成)
+ソースはGitHubにあります(sakachin2/VBOCR2)
+    水巻マチ (sakachin2@yahoo.co.jp)
+
+2020/01/27   v2.08
