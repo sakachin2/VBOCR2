@@ -62,7 +62,14 @@ Replace Key
   Default is F2.
   ShortcutKey for Replace by Find & Replace Dialog.
 
+Split Heaser/Footer
+  To avoid header is extraced mixed with body text,
+  Extract Chapter title, Page count etc separated.
+  Effective only for Japanese vertical writing.
+  Default is ON, reset if error occurs by setting ON. 
+  You may extract patially specifying range by mouse dragging.
+
 Language
   Restart this application when changed.
 
-(Form5E) 2020/01/27
+(Form5E) 2021/06/02

@@ -1,4 +1,4 @@
-﻿'CID:''+v191R~:#72                             update#=  768;        ''~v191R~
+﻿'CID:''+v191R~:#72                             update#=  771;        ''~v191R~
 '************************************************************************************''~v002I~
 'v191 2020/01/27 Help dialog "OK" did not work                         ''~v191I~
 'v190 2020/01/27 for VBOCR2 from VBI2KWRT 2.08 (drop kana translation) ''~v190I~
@@ -44,7 +44,7 @@ Imports System.IO
 Imports System.Threading                                               ''~7613I~''~v110I~''~v105I~
 
 Public Class Form1
-    Private Const VERSION = "v2.01"                                   ''~v122I~''~v128R~''~v133R~''~v168R~''~v174R~''~v181R~''+v191R~
+    Private Const VERSION = "v2.02"                                   ''~v122I~''~v128R~''~v133R~''~v168R~''~v174R~''~v181R~''+v191R~
     Private Declare Auto Function CreateCaret Lib "user32.dll" (hWnd As IntPtr, hBitmap As IntPtr, nWidth As Integer, nHeight As Integer) As Boolean ''~v067I~
     Private Declare Auto Function ShowCaret Lib "user32.dll" (hWnd As IntPtr) As Boolean ''~v067I~
     Private caretWidth As Integer = 2                                  ''~v067I~

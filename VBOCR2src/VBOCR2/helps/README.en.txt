@@ -1,6 +1,13 @@
 (UTF8 encoding)
 
 *********************************************************************************************
+V2.02 : 2021/06/05 
+
+- Supports Japanesw Horizontal 2 page writing split by center space.
+- Supports Japanese Vertical 2 page writing.(4 page for left and right)
+- Setup option is added to extract header/footer line separatedly
+  to avoid which may be mixed with body text.
+*********************************************************************************************
 V2.01 : 2020/01/27 (1st release)
 
 This tool generates text file extracting image document file.

@@ -4,6 +4,11 @@ update SetupProoject\Product.wxs by WixEdit
  if copyed from VBI2KWRT change productid and Upgrade code
     if not install fail by newer version already installed
  chk also My Project\AssemblyInfo.vb, <Assembly: Guid 
+GIT initial
+   Browser   login to github, create repositotry
+   GitBash    cd /w/gitLocal
+               git clone  git@github.com:sakachin2/VBOCR2.git
+               xcopy /s VBOCR2save VBOCR2
 ================================================= g:\src\xe\up.txt
 VBOCR2 GitHub
     update W:\\msvs2017CProjects\VBOCR2\VBOCR2\helps\README's

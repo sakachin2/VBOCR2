@@ -1,6 +1,7 @@
-﻿'*CID:''+v181R~:#72                          update#=  192;          ''~v181R~
+﻿'*CID:''+v198R~:#72                          update#=  199;          ''~v198R~
 '************************************************************************************''~v030I~
-'v190 2020/01/27 for VBOCR2 from VBI2KWRT 2.08 (drop kana translation) ''+v181I~
+'v198 2021/06/02 split header/footer as setting option                 ''~v198I~
+'v190 2020/01/27 for VBOCR2 from VBI2KWRT 2.08 (drop kana translation) ''~v181I~
 'v181 2020/01/26 ReplaceKey:default F2                                 ''~v181I~
 'v163 2018/03/03 add string customizability for kata/hira chikan       ''~v163I~
 'v115 2017/12/26 support dakuon,handakuon key                          ''~v115I~
@@ -71,7 +72,8 @@ Public Class FormOptions
     Private samePrintFont As Boolean                                   ''~7515I~
     Private swInit As Boolean = False                                    ''~7614I~
     Public swFontChangedScr As Boolean                                ''~7515I~
-    Public swLangChanged As Boolean = False                            ''~7618I~
+    Public swLangChanged As Boolean = False                            ''~7618I~''+v198R~
+    Public Shared swSplitHeader As Boolean                             ''+v198I~
 
     '************************************************************************''~v110I~
     Sub New()
@@ -105,6 +107,7 @@ Public Class FormOptions
         fontSize = My.Settings.CFGF5_FontSize                            ''~7508I~''~7515R~
         fontStyle = My.Settings.CFGF5_FontStyle                          ''~7508I~''~7515R~
         samePrintFont = My.Settings.CFGF5_PrintFontSame                 ''~7515I~
+        swSplitHeader = My.Settings.CFGF5_SplitHeader                  ''~v198I~
         '       swWinBES99 = My.Settings.CFGF12_swBES99          ''~7525I~''~7604R~''~v030R~
         '       swEnglishDoc = My.Settings.CFGF5_EnglishDoc                    ''~7618R~''~7619R~
         cfgLang = My.Settings.CFGF5_LangID                             ''~7619R~
@@ -174,6 +177,7 @@ Public Class FormOptions
         My.Settings.CFGF5_KeyReplace = keyReplace                      ''~v181I~
         My.Settings.CFGF5_KeySpecialChar = keySpecialChar              ''~7515I~
         My.Settings.CFGF5_PrintFontSame = samePrintFont                  ''~7515I~
+        My.Settings.CFGF5_SplitHeader = swSplitHeader                  ''~v198I~
         '       My.Settings.CFGF12_swBES99 = swWinBES99             ''~7525I~''~7604R~''~v030R~
         '       My.Settings.CFGF5_EnglishDoc = swEnglishDoc                    ''~7618R~''~7619R~
         My.Settings.CFGF5_LangID = cfgLang                             ''~7614I~''~7619R~
@@ -249,6 +253,7 @@ Public Class FormOptions
         TextBoxScrFontName.Text = createFontnameScr()                   ''~7508I~''~7515R~
         TextBoxPrintFontname.Text = createFontname()                   ''~7515R~
         CheckBoxPrintFont.Checked = samePrintFont                      ''~7515M~
+        CheckBox1.Checked = swSplitHeader                                 ''~v198I~
         '       CheckBoxWinBES99.Checked = swWinBES99              ''~7525I~   ''~7604R~''~v030R~
         '       CheckBoxEnglishDoc.Checked = swEnglishDoc                      ''~7618I~''~7619R~
         setRGLang(cfgLang)                                             ''~7614I~
@@ -260,7 +265,7 @@ Public Class FormOptions
         TextBoxKeyWords.Text = "F" & keyWords                          ''~v065I~
         TextBoxKeyFind.Text = "F" & keyFind                            ''~v070I~
         TextBoxKeyReplace.Text = "F" & keyReplace                      ''~v181I~
-'       TextBoxKeySpecialChar.Text = "F" & keySpecialChar              ''~7515I~''+v181R~
+        '       TextBoxKeySpecialChar.Text = "F" & keySpecialChar              ''~7515I~''~v181R~
     End Sub 'resize
     Private Function getOptions() As Boolean
         Dim sb = New System.Text.StringBuilder()
@@ -276,6 +281,7 @@ Public Class FormOptions
         '       swWinBES99 = CheckBoxWinBES99.Checked                ''~7525I~ ''~7604R~''~v030R~
         '       swEnglishDoc = CheckBoxEnglishDoc.Checked                      ''~7618I~''~7619R~
         '       Dim keyval As Integer = getKeyValue(TextBoxlabelSmallKey.Text, TextBoxKeySmallKana.Text)                ''~7502R~''~7515R~''~v038R~
+        swSplitHeader = CheckBox1.Checked                                ''~v198I~
         Dim keyval As Integer                                          ''~v038I~
         keyval = getKeyValue(TextBoxLabelSmallKey.Text, TextBoxKeySmallKana.Text, DEFAULT_KEY_SMALL) ''~v038I~
         If keyval < 0 Then                                                    ''~7502I~
@@ -325,7 +331,7 @@ Public Class FormOptions
         keyReplaceKey = CType(Keys.F1 + keyReplace - 1, Keys)          ''~v181I~
         ''~7515I~
         '       keyval = getKeyValue(TextBoxLabelSpecialChar.Text, TextBoxKeySpecialChar.Text) ''~7515I~''~v038R~
-'       keyval = getKeyValue(TextBoxLabelSpecialChar.Text, TextBoxKeySpecialChar.Text, DEFAULT_KEY_SPECIALCHAR) ''~v038I~''+v181R~
+        '       keyval = getKeyValue(TextBoxLabelSpecialChar.Text, TextBoxKeySpecialChar.Text, DEFAULT_KEY_SPECIALCHAR) ''~v038I~''~v181R~
         If keyval < 0 Then                                             ''~7515I~
             Return False                                               ''~7515I~
         End If                                                         ''~7515I~
@@ -673,5 +679,5 @@ Public Class FormOptions
     Private Sub dialogAddString()                                      ''~v163I~
         Dim dlg As Form6 = New Form6()                                   ''~v163R~
         dlg.showDlg()                                                  ''~v163R~
-    End Sub                                                            ''~v163I~
+    End Sub
 End Class

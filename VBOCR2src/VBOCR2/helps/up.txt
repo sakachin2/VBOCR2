@@ -1,0 +1,44 @@
+=================================================
+VBOCR2 GitHub
+    set Version
+        change version "My Project\AssemblyInfo.vb", SetupProject\Product.wxs:Vesion, Minimum,Maximum
+        Form1.vb Const VERSION
+    update helps\README*
+	rename w:\gitLocalOld\VBOCR-->*.Vxxx
+	xcopy w:\gitLocal\VBOCR2-->w:\gitLocalOld\VBOCR2.Vxxx
+	xcopy w:\gitLocal\VBOCR2.vector-->w:\gitLocalOld\VBOCR2.vector.Vxxx
+    release build
+//    release deploy
+//        WhreToDeploy <-- W:\Msvs2017CProjects\Release
+//        rename W:\msvs2017CProjects\Release\VBOCR\ --> VBOCR.Vxxx
+//        rename W:\msvs2017CProjects\Release\VBOCR\VBOCR.zip --> VBOCR.zip.Vxxx
+//        rename W:\msvs2017CProjects\Release\VBOCRsrc\ --> VBOCRsrc.Vxxx
+//        rename W:\msvs2017CProjects\Release\VBOCR\VBOCRsrc.zip --> VBOCRsrc.zip.Vxxx
+
+
+//      change version VBOCR.vbproj   <-- do not edit by xe, change by Deploy of VBImage2kana panel
+//                                               (deployment tag of VBOCR)
+//        install by CD-ROM/DVD-ROM,No application update confirmation,Complete
+//         --> w:\msvs2010Projects\Release\VBOCR
+//  build SetupVBOCR         -->SetupVBOCR\bin\Release\SetupVBOCR.msi
+    build SetupVBOCR         -->MSVS2017CProjects\VBOCR2\SetupProject\bin\Release\SetupVBOCR2.msi
+	bat\vbocr2upsrc.bat
+        msvs2017CProjects\VBOCR -> msvs2017CProjects\Release\VBOCR2src\VBOCRsrc2\ and msvs2017CProjects\ReleaseVBOCR2src.zip
+
+    bat\vbocr2gitup.bat
+        (after vbocr2upsrc.bat)
+
+        xcopy w:\msvs2017CPpjects\Release\VBOCR2src     w:\gitLocal\VBOCR2\VBOCR2src
+        copy  w:\msvs2010CPpjects\Release\VBOCR2src.zip w:\gitLocal\VBOCR2\
+        copy  w:\msvs2010CPpjects\SetupVBOCR\bin\release\SetupVBOCR.msi ->Release, w:\gitLocal\VBOCR2
+    push to git@github.com:sakachin2/VBOCR.git
+
+    Vector
+        update registration.txt in helps
+        rename W:\gitlocal\VBOCR.vector\VBOCR.vector.zip VBOCR.vectorzip.Vxxx
+		bat\vbocrvectorup.bat
+    		(after vbocrgitup.bat)
+        	at W:\GitLocal\VBOCR.vector
+        	zip VBOCRvector VBOCR.zip registration.txt
+        upload  VBOCRvector.zip
+        	after login,online update 

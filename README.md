@@ -1,6 +1,6 @@
 ﻿# README.md 
 
-VBOCR2                   2020/01/27  V2.01
+VBOCR2                   2021/06/05  V2.02
 
 Tool of TextExtraction from image file using Microsoft OCR Library for Windows (Windows10).
 Mis-recognition is corrected by 1 key operation.

@@ -45,7 +45,7 @@ Folowins are applied as default.
 --------------------------------------------------------------------------
 ToolBarButtons Open/Save/SaveAS is to load/save the settiog of this dialog.
 Use for exchanging setting for each document differently.
-You may save to appropriate folder if updated because program reinstallation loose it.
+You may SaveAs to appropriate folder before re-install which looses the update.
 Record format is as following, line terminater is 0x0d0a,
 default extension is ".trn" です
   n;m;Translation (n-'1':Use, '0':NotUse; m- '1':with Shift, '0':without Shift)

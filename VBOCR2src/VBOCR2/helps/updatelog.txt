@@ -1,3 +1,25 @@
+V2.0.2 : 2021/06/05  gitup         *************************************************
+'v201 2021/06/04 drop v200. MS-API works for english 2 page it self. Bug reason may be charH/charW setting for multi char on a OcrWord(occurs for english text)
+'                drop droplist down list but leave horizontal2 logic
+           class10
+'v200 2021/06/04 support layout hrizontal 2 page for English
+           class10
+'v199 2021/06/03 support layout hrizontal 2 page
+           class10
+'v198 2021/06/02 split header/footer as setting option
+           Form5.vb class10
+'v197 2021/05/28 split footer
+           class10
+'v196 2021/05/27 split header on v192(extract by split image)
+           class10
+'v195 2021/05/27 split header and footer for vertical 1 page
+           class10
+'v194 2021/05/25 split header and footer for vertical 2 page
+           class10
+'v193 2021/05/22 support layout ASIS
+           class10
+'v192 2021/05/21 support layout vertical 2 page
+           class10
 V2.0.1 : 2020/01/27  gitup         *************************************************
 'v191 2020/01/27 Help dialog "OK" did not work
            Form1

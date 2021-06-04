@@ -1,8 +1,0 @@
-  Default shortcut key is F3 for FindNext, Shift+F3 for FindNext Upword.
-  Default shortcut key is F2 for Replace, Shift+F2 for Replace Upword.
-  Shortcut key is defined on "Setting" dialog.
-
-  In the cse Replacement depends prevous words,
-  you may search by F3 then use F2 to replace or F3 to go to next word.
-
-(Form8) 2020/01/27
