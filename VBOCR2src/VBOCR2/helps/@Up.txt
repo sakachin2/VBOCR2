@@ -23,7 +23,7 @@ VBOCR2 GitHub
 	bat\vbocr2upsrc.bat
         msvs2017CProjects\VBOOCR2 -> msvs2017CProjects\Release\VBOCR2src\VBOCR2 and VBOCR2src.zip
 
-    bat\vbiocr2gitup.bat
+    bat\vbocr2gitup.bat
         (after vbocr2upsrc.bat)
 
         xcopy w:\msvs2017CPpjects\Release\VBOCR2src     w:\gitLocal\VBOCR2src
@@ -35,7 +35,7 @@ VBOCR2 GitHub
     push to git@github.com:sakachin2/VBOCR2.git by GitGUI StateChanged, Commit with commit Message
 
     Vector
-        update registration.txt in helps
+        update registration.txt in helps:Version
         rename W:\gitlocal\VBOCR2.vector\VBOCR2.vector.zip VBOCR2.vectorzip.Vxxx
 		bat\vbocr2vectorup.bat
     		(after vbocr2gitup.bat)
