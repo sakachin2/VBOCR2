@@ -167,16 +167,16 @@ Namespace My.Resources
         '''イメージ読み取りで誤認識が頻発するとき
         '''&quot;三&quot;、&quot;禅&quot;を登録すれば簡単に修正入力できます
         '''
-        '''ダイアログは読み取り画面とかなテキスト画面で共通です
-        '''その両方を画面を開いているときは、語句定義ダイアログキー(省略値:F9)を押せば
-        '''スィッチします。ダイアログの画面の色でどちらへの入力となるか判別できます
-        '''&quot;転送先変更&quot; ボタンを押してもスイッチできます
         '''--------------------------------------------------------------------------
         '''&quot;キー&quot;(英字1文字) を指定すると &quot;有効&quot; がチェックしていれば Ctrl+英字で 
         '''ダイアログが開いてない状態でも&quot;語句&quot; をテキストボックスに転送します
         '''キーの英字の大文字小文字は区別されません、重複があると前の行が適用されます
         '''ダイアログを開いているときは &quot;転送&quot; ボタンで &quot;有効&quot;/&quot;削除&quot;の設定にかかわらず転送できます
-        '''尚、Ctrl+ [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        '''尚、Ctrl+v は ここで設定しなければ &quot;貼り付け&quot;の処理をします
+        '''
+        '''コピー&amp;ペーストを使う場合はセル全体ではなく文字列が反転している状態の時に
+        '''マウス右ボタンを押してください
+        '''タイトル行の下のツールバーボタン カット/コピー/貼り付けボタンは行の複写、移動に使います        ''' [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         '''</summary>
         Friend ReadOnly Property help_form13() As String
             Get
@@ -194,10 +194,10 @@ Namespace My.Resources
         '''    &quot;禅&quot; resembles &quot;褝&quot;.
         '''     so register &quot;三&quot; or &quot;禅&quot; to easy correction.
         '''
-        '''One dialog supports both of Extracted text form and kana text form.
-        '''You can swith forms to receive by Open Key(Default:F9).
-        '''Dialog back-color also switches to identify &quot;Phrase&quot; is sent to.
-        '''&quot;SwitchFormSendT [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        '''---------------------------------------------------------------
+        '''When &quot;Key&quot;(One Alphabet Char,Case InSensitive) is registered,
+        '''Ctrl+Key sends &quot;Phrase&quot; to text box if &quot;Use&quot; is checked ON
+        '''even when dislog is  [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         '''</summary>
         Friend ReadOnly Property help_form13E() As String
             Get
@@ -288,18 +288,18 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Kana text dialog
-        '''
-        '''By &quot;TextExtraction function&quot; + &quot;Kana translation function&quot;,
-        '''generate Japanese Kana file for WinBES99 extracting text from document file
-        '''created by scanner device.
-        '''English Document can be extracted, and &quot;Kana translation&quot; do nothing paticularly.
-        '''
-        '''Kana is a collection of Japanese Letter excludes Kanji.
-        '''WinBES99 is a text translation tool into Braille.
+        '''  Generate text file extracting text from image document file created by scanner device.
+        '''English Document can be extracted.
         '''Windows app &quot;Windows Fax and Scan&quot; can be used to create image file. 
         '''
-        '''Requirement：Extrancting text from image file uses &quot;Microsoft [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        '''Requirement：Extrancting text from image file uses &quot;Microsoft OCR Library for Windows&quot;,
+        '''             Windows10 Novenber update(2015/11:Version1511) is required.
+        '''
+        '''Starting by Menu:&quot;File&quot; --&gt; &quot;Open Image file&quot;, then &quot;Extract&quot; on ImageFile Form.
+        '''
+        '''Long line is folded.
+        '''&quot;⏎&quot; is CRLF sign.
+        '''Lines are concatinated by  [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         '''</summary>
         Friend ReadOnly Property help_form1E() As String
             Get
@@ -308,26 +308,25 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  文書読み取り機能＋かな変換機能で
-        '''スキャナーで読み取ったイメージファイルから漢字かな混じり文を読み取って
-        '''WinBES99 のためのかな入力ファイルを作成するツールです
+        '''  スキャナーで読み取ったイメージファイルから文字を読み取ってテキストファイルを作成するツールです。
         '''イメージファイルは &quot;Windows Fax と スキャン&quot; で スキャナーからイメージファイルを得ることができます
-        '''英語文書も読み取れますが&quot;かな変換&quot;では特になにもしません
+        '''英語文書も読み取れます
         '''
         '''要件：文書読み取り機能は &quot;Microsoft OCR Library for Windows&quot; を使用しています
         '''      Windows10 Novenber Update(2015/11:Version 1511)にアップグレードが必要です
         '''
         '''メニューの &quot;ファイル&quot; ー＞ &quot;イメージファイルを開く&quot; から始め
-        '''イメージファイル画面で &quot;読み取り&quot;ーー＞
-        '''テキストファイル画面で &quot;かな変換&quot;ーー＞
-        '''で、この画面にかなテキストファイルが表示されます
+        '''イメージファイル画面で &quot;読み取り&quot;します。
         '''
         '''長い行は折り返し表示されます
         '''&quot;Enter&quot;キーで行が分割され、改行マーク(⏎)の
         '''削除で行が連結されます
         '''
-        '''半角カタカナは
-        '''イメージ読み取りファイルから &quot;かな変換&quot; した [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        '''途中で保存したファイルから修正を再開する場合はメニューの
+        '''&quot;テキストファイルを開く&quot; を使用します
+        '''
+        '''尚、Microsoft Office Document Imaging や MicrosoftOffice Document Scanning で
+        '''文書をスキャンし [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         '''</summary>
         Friend ReadOnly Property help_form1U8() As String
             Get
@@ -355,13 +354,12 @@ Namespace My.Resources
         '''  その部分だけ読み取りすることもできます
         '''  ボックスはマウスクリックすると消えます
         '''
-        '''  部分読み取りすると結果が別のフォームに表示されます
+        '''  読み取り結果テキストが表示された状態で部分読み取りすると結果が別のフォームに表示されます
         '''  OKボタンまたはカット＆ペーストで取り込んでください
         '''
         '''&quot;言語&quot;:
         '''  横書き、縦書きの判定は Windows OCR Library が行うので
-        '''  Library に対する指定はできませんが左右のページを逆に認識することがあります
-        '''  この指定 [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        '''  Library に対する指定はできませんが左右のページを逆に [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         '''</summary>
         Friend ReadOnly Property help_form2() As String
             Get
@@ -400,18 +398,12 @@ Namespace My.Resources
         '''&quot;Enter&quot;キーで行が分割され、改行マーク(⏎)の
         '''削除で行が連結されます
         '''
-        '''&quot;かな変換&quot; ボタンを押すとメイン画面に
-        '''かなテキストファイルが表示されます(多少時間がかかります)
-        '''かな変換にあったては行末の改行１個は句読点、空白、
-        '''括弧などで終わってないと次の行と連結して変換されます
-        '''改行が２個以上の場合は連結されません
-        '''変換に当たってはその点を意識してください
-        '''
         '''マウス右ボタンからカット＆ペースト、検索と置換
-        '''記号入力、辞書ファイルの利用、語句のショートカット入力ができます
+        '''頻出語句のショートカット入力、事前定義置換の定義ができます
         '''検索と置換および次を検索のショートカットは F3(上へ検索：Shift+F3)です
+        '''F2(上方向:Shift+F2)は&quot;検索と置換&quot;ダイアログの設定による置換のショートカットです。
         '''
-        '''(Form3) 2018/01/10
+        '''(Form3) 2020/01/27
         ''' に類似しているローカライズされた文字列を検索します。
         '''</summary>
         Friend ReadOnly Property help_form3() As String
@@ -421,21 +413,21 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Kana-Kanji mixed text dialog.
-        '''
-        '''Text of Extracted from Document Image file
+        '''  Text of Extracted from Document Image file
         '''Adjust mis-recognition in extraction.
         '''Long line is shown folded.
         '''User Enter key to split line,
         '''delete EndOfLine sign(⏎) to concatinate lines.
         '''
-        '''&quot;Kana&quot; button translate kanji to Kana 
-        '''and show result to main form.
-        '''It take a little bit times.
-        '''Lines not ended with puctuation including parenthesis or space
-        '''are concatinated to the next line at translation.
-        '''Concatination is not done if over 2 EndOfLine sign at end of line. 
-        '''Cos [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        '''Mouse Right Button click popup context menu.
+        '''Open Cut-and-Paste, Find/Replace, ShortcutInputDefinitionForWordsAppearsFrequetly,
+        '''DefininitionOfStringReplaceByF5.
+        '''
+        '''Shortcut key:
+        '''  F3      :Open Find/Replace Dialog,Find Next
+        '''  Shift+F3:Find Next upward
+        '''  F2      :&quot;Replace&quot; by Find/Replace Dialog.
+        '''  Shift+F2:Replac [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         '''</summary>
         Friend ReadOnly Property help_form3E() As String
             Get
@@ -451,17 +443,16 @@ Namespace My.Resources
         '''  印刷用フォントを特に設定しない場合は
         '''  印刷フォント＝画面フォントにチェックを入れてください
         '''
-        '''  以下４項目で機能キーF1～F12を指定しますが, F7,F8 は IME で カタカナ、
+        '''  以下の項目で機能キーF1～F12を指定しますが, F7,F8 は IME で カタカナ、
         '''  半角カタカナに使われているので使用しないほうがよいでしょう
+        '''  F10 もWindwsによってドロップダウンメニューを開くのに割り当てられています。
         '''  スペースクリアーすると省略値 になります
         '''
         '''文字 置換キー:
         '''  大文字&lt;--&gt;小文字 置換に使用する機能キーを指定,  省略値 F5
         '''    &quot;あいうえおやゆよつわかけ&quot; &lt;--&gt; &quot;ぁぃぅぇぉゃゅょっゎゕゖ&quot;     ひらがな
         '''    &quot;アイウエオヤユヨツワカケ&quot; &lt;--&gt; &quot;ァィゥェォャュョッヮヵヶ&quot;     カタカナ
-        '''    &quot;ｱｲｳｴｵﾔﾕﾖﾂ&quot;                &lt;--&gt; &quot;ｧｨｩｪｫｬｭｮｯ&quot;                    半角カタカナ
-        '''
-        '''  同じキー操作でイメージ読み取りで間違え易い字の置換も行います [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        '''    &quot;ｱｲｳｴｵﾔﾕﾖﾂ&quot;                &lt;--&gt; &quot;ｧｨｩｪｫｬｭｮｯ&quot;                 [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         '''</summary>
         Friend ReadOnly Property help_form5() As String
             Get
@@ -475,15 +466,14 @@ Namespace My.Resources
         '''  Open FontDialog when IconButton pushed.
         '''  Choose Standard/Bold/Italic/Bold Italic only for FontStyle.
         '''
-        '''  Set PFKey Number(F1&lt;--&gt;F12) for 4 items bellow.
+        '''  Set PFKey Number(F1&lt;--&gt;F12) for items bellow.
         '''  F7 and F8 is not to be assigned because those are used by Japanese IME
         '''  to translate to Katakana and Hankaku-Katakana,
+        '''  Windows assigns F10 to open dropdown menu.
         '''  Back to default value when space cleared.
         '''
         '''Japanese Letter Replacement Key:
-        '''  Set PFKey Number for replacement of Small and large Japanese Letter like as bellow.
-        '''  Default is :F5.
-        '''    [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        '''  Set PFKey Number for replacement of Small and large Japanese Le [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         '''</summary>
         Friend ReadOnly Property help_form5E() As String
             Get
@@ -492,20 +482,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  &quot;設定&quot;ダイアログの&quot;文字置換キー&quot;で変換する対象文字を
-        '''このダイアログで拡張できます
+        '''  &quot;設定&quot;ダイアログの&quot;文字置換キー&quot;（省略値:F5)で変換する対象文字を
+        '''このダイアログで拡張できます。
+        '''（カーソルが変換対象文字にあるときにF5を押すと変換されます）
         '''  &quot;変換列&quot;には2文字以上を指定してください
+        '''  セミコロン(;)は使用できません。
         '''  例） &apos;&quot;&lt;                    : (&apos;)--&gt;(&quot;)--&gt;(&lt;)--&gt;(&apos;) と巡回
         '''  変換します
-        '''  /str1/str2/ 型式で文字列の変換も定義できます、逆の置換はしません
+        '''  /str1/str2/ 型式で文字列の変換も定義できます、文字列の場合は逆の置換はしません
         '''  str1,str2 には空白文字も含められます
         '''  例) (F5は省略値の文字置換キーで設定ダイアログで変更可能)
         '''       -!                     : F5 で (-)--&gt;(!)--&gt;(-)
         '''       /:/.../                : F5 で (:)--&gt;(...)
         '''       /&quot;/&lt;/                  : F5 で (&quot;)--&gt;(&lt;)  
-        '''       /&quot;/&gt;/     (+shift On)  : Shift+F5 で (&quot;)--&gt;(&lt;)
-        '''       /、つ/う/              : F5 で (、つ)--&gt;(う)
-        '''  &quot;設定&quot;ダイアログのヘルプで示 [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        '''       /&quot;/&gt;/     (+shift On)  : Shift+F5 で (&quot;)- [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         '''</summary>
         Friend ReadOnly Property help_form6() As String
             Get
@@ -514,15 +504,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  This dialog expands replacement by &quot;Japanese Letter Replacement Key&quot;
-        '''over default translation cases shown on &quot;Help&quot; of Setting dialog.
+        '''  This dialog expands replacement by &quot;Japanese Letter Replacement Key&quot;(Default F5)
+        '''over default translation cases shown bellow.
+        '''Press F5 when cursor is on the character to be replaced.
         '''  Specify at least 2 characters in &quot;Translation&quot; column.
+        '''  Semicolon(;) is not available.
         '''  e.g.) &apos;&quot;&lt;              : (&apos;)--&gt;(&quot;)--&gt;(&lt;)--&gt;(&apos;).
         '''  If char is defined duplicated to default cases shown on &quot;Help&quot; of &quot;Settings&quot;,
         '''  definition in this dialog is applied.
-        '''  /str1/str2/ format allows string translation, no reverse replacemeny.
-        '''  str1,str2 may contains space char.
-        '''  e.g) (F5 is default functio key [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        '''  /str1/str2/ format allows string translation, no reverse re [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         '''</summary>
         Friend ReadOnly Property help_form6E() As String
             Get
@@ -564,15 +554,14 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  探索と置換ダイアログ
-        '''
-        '''  かなテキスト画面と漢字テキスト画面と両方で使います。
-        '''  どちらの画面に対するものかは画面の色で判定できます。
-        '''  &quot;次の検索&quot;のショートカットは 省略値 F3 で、上へ検索は Shift+F3 です
+        '''    &quot;次の検索&quot;のショートカットは 省略値 F3 で、上へ検索は Shift+F3 です
         '''  &quot;置換&quot;のショートカットは 省略値 F2 で、上へ検索は Shift+F2 です
         '''  F3/F2 は&quot;設定&quot;で変更できます。
         '''
-        '''(Form8) 2020/01/26
+        '''  場合によって置換したりしなかったりする場合は F3 で探索し
+        '''  置換する場合は F2、置換しない場合は F3 で次を探索するとよいでしょう 
+        '''
+        '''(Form8) 2020/01/27
         ''' に類似しているローカライズされた文字列を検索します。
         '''</summary>
         Friend ReadOnly Property help_form8() As String
@@ -582,21 +571,65 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Find &amp; Replace Dialog
-        '''
-        '''  Available for both Kana-Kanji text and Kana text dialog.
-        '''  The background colour indicates for which the dialog is.
-        '''
-        '''  Default shortcut key is F3 for FindNext, Shift+F3 for FindNext Upword.
+        '''    Default shortcut key is F3 for FindNext, Shift+F3 for FindNext Upword.
         '''  Default shortcut key is F2 for Replace, Shift+F2 for Replace Upword.
         '''  Shortcut key is defined on &quot;Setting&quot; dialog.
         '''
-        '''(Form8) 2020/01/26
+        '''  In the cse Replacement depends prevous words,
+        '''  you may search by F3 then use F2 to replace or F3 to go to next word.
+        '''
+        '''(Form8) 2020/01/27
         ''' に類似しているローカライズされた文字列を検索します。
         '''</summary>
         Friend ReadOnly Property help_form8E() As String
             Get
                 Return ResourceManager.GetString("help_form8E", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  複数のイメージファイルが表示選択されました
+        '''
+        '''&quot;言語&quot;:
+        '''  全てのファイルに適用されます
+        '''&quot;読み取り&quot;:
+        '''  入力ファイルが一括で処理され、出力ファイルに書き出されます
+        '''
+        '''(FormMS) 2021/08/07
+        ''' に類似しているローカライズされた文字列を検索します。
+        '''</summary>
+        Friend ReadOnly Property help_formMS() As String
+            Get
+                Return ResourceManager.GetString("help_formMS", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Multiple image files are seleted.
+        '''
+        '''&quot;Forms&quot;:
+        '''  Vertical, Horizontal ... , applies to all input files.
+        '''&quot;Extract&quot;:
+        '''  All files are extacted to a output file at once.
+        '''&quot;Output File&quot;:
+        '''  Modify if required.
+        '''
+        '''(Form2E) 2021/08/08
+        ''' に類似しているローカライズされた文字列を検索します。
+        '''</summary>
+        Friend ReadOnly Property help_formMSE() As String
+            Get
+                Return ResourceManager.GetString("help_formMSE", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        '''</summary>
+        Friend ReadOnly Property Icon_Help32() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Icon-Help32", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
@@ -607,6 +640,26 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("Icon_i2k1", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        '''</summary>
+        Friend ReadOnly Property Icon_ReadText() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Icon-ReadText", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        '''</summary>
+        Friend ReadOnly Property Icon_ReadTextEN() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Icon-ReadTextEN", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
@@ -1560,6 +1613,15 @@ Namespace My.Resources
         Friend ReadOnly Property STR_MSR_WARN_CURSOR_POS() As String
             Get
                 Return ResourceManager.GetString("STR_MSR_WARN_CURSOR_POS", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  複数ファイル 一括 読取り に類似しているローカライズされた文字列を検索します。
+        '''</summary>
+        Friend ReadOnly Property STR_MULTI_SELECT_FILE() As String
+            Get
+                Return ResourceManager.GetString("STR_MULTI_SELECT_FILE", resourceCulture)
             End Get
         End Property
         

@@ -27,6 +27,7 @@ Partial Class Form2
         Me.ToolStripMenuItemFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItemZoomIn = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItemZoomOut = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItemDegree1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItemRotateLeft = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItemRotateRight = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripComboBoxLang = New System.Windows.Forms.ToolStripComboBox()
@@ -38,7 +39,6 @@ Partial Class Form2
         Me.PanelPictureBox = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.SaveFileDialogImage = New System.Windows.Forms.SaveFileDialog()
-        Me.ToolStripMenuItemDegree1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.PanelPictureBox.SuspendLayout()
@@ -68,6 +68,13 @@ Partial Class Form2
         Me.ToolStripMenuItemZoomOut.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         resources.ApplyResources(Me.ToolStripMenuItemZoomOut, "ToolStripMenuItemZoomOut")
         Me.ToolStripMenuItemZoomOut.Name = "ToolStripMenuItemZoomOut"
+        '
+        'ToolStripMenuItemDegree1
+        '
+        Me.ToolStripMenuItemDegree1.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.ToolStripMenuItemDegree1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.ToolStripMenuItemDegree1.Name = "ToolStripMenuItemDegree1"
+        resources.ApplyResources(Me.ToolStripMenuItemDegree1, "ToolStripMenuItemDegree1")
         '
         'ToolStripMenuItemRotateLeft
         '
@@ -128,13 +135,6 @@ Partial Class Form2
         resources.ApplyResources(Me.PictureBox1, "PictureBox1")
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.TabStop = False
-        '
-        'ToolStripMenuItemDegree1
-        '
-        Me.ToolStripMenuItemDegree1.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.ToolStripMenuItemDegree1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.ToolStripMenuItemDegree1.Name = "ToolStripMenuItemDegree1"
-        resources.ApplyResources(Me.ToolStripMenuItemDegree1, "ToolStripMenuItemDegree1")
         '
         'Form2
         '

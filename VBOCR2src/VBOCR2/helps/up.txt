@@ -14,8 +14,7 @@ VBOCR2 GitHub
 //        rename W:\msvs2017CProjects\Release\VBOCR\VBOCR.zip --> VBOCR.zip.Vxxx
 //        rename W:\msvs2017CProjects\Release\VBOCRsrc\ --> VBOCRsrc.Vxxx
 //        rename W:\msvs2017CProjects\Release\VBOCR\VBOCRsrc.zip --> VBOCRsrc.zip.Vxxx
-
-
+//
 //      change version VBOCR.vbproj   <-- do not edit by xe, change by Deploy of VBImage2kana panel
 //                                               (deployment tag of VBOCR)
 //        install by CD-ROM/DVD-ROM,No application update confirmation,Complete
@@ -35,10 +34,11 @@ VBOCR2 GitHub
 
     Vector
         update registration.txt in helps
-        rename W:\gitlocal\VBOCR.vector\VBOCR.vector.zip VBOCR.vectorzip.Vxxx
-		bat\vbocrvectorup.bat
+//      rename W:\gitlocal\VBOCR.vector\VBOCR.vector.zip VBOCR.vectorzip.Vxxx
+        save prev version to w:\gitlocal\___Vxxx
+		bat\vbocr2vectorup.bat
     		(after vbocrgitup.bat)
-        	at W:\GitLocal\VBOCR.vector
-        	zip VBOCRvector VBOCR.zip registration.txt
-        upload  VBOCRvector.zip
+        	at W:\GitLocal\VBOCR2.vector
+        	zip VBOCR2vector VBOCR2.zip registration.txt
+        upload  VBOCR2vector.zip
         	after login,online update 

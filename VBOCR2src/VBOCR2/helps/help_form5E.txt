@@ -32,7 +32,7 @@ Japanese Letter Replacement Key:
     十(kanji) <--> ＋(Plus) 
 
   By the key with Shift modifier kety,following replacement will be done.
-    は<-->わ、へ<-->え、う<-->ー
+    は<-->わ、へ<-->え、う<-->ー(u30fc)
 
 Additional:
   Push button to open additional replacement dialog
@@ -62,7 +62,7 @@ Replace Key
   Default is F2.
   ShortcutKey for Replace by Find & Replace Dialog.
 
-Split Heaser/Footer
+Split Header/Footer
   To avoid header is extraced mixed with body text,
   Extract Chapter title, Page count etc separated.
   Effective only for Japanese vertical writing.
@@ -72,4 +72,4 @@ Split Heaser/Footer
 Language
   Restart this application when changed.
 
-(Form5E) 2021/06/02
+(Form5E) 2021/08/06

@@ -1,6 +1,10 @@
 (UTF8 encoding)
 
 *********************************************************************************************
+V2.03 : 2021/08/09 
+
+- Added the function that extract from multiple image files at once.
+*********************************************************************************************
 V2.02 : 2021/06/05 
 
 - Supports Japanesw Horizontal 2 page writing split by center space.

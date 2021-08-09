@@ -1,5 +1,6 @@
-﻿'CID:''+v201R~:#72                             update#=  686;        ''~v200R~''~v201R~
+﻿'CID:''+v210R~:#72                             update#=  687;        ''+v210R~
 '************************************************************************************''~v026I~''~v100I~
+'v210 2021/08/06 support imagefile multi selection                     ''+v210I~
 'v201 2021/06/04 drop v200. MS-API works for english 2 page it self. Bug reason may be charH/charW setting for multi char on a OcrWord(occurs for english text)''~v201I~
 '                drop droplist down list but leave horizontal2 logic   ''~v201I~
 'v200 2021/06/04 support layout hrizontal 2 page for English           ''~v200I~
@@ -89,19 +90,19 @@ Public Class Cocr
     ''~v106I~
     Private clipRect As Rectangle                                      ''~v106I~
     Private swRectBMP As Boolean                                       ''~v106I~
-    Private bmpRect As Bitmap                                          ''~v106I~
+    '*  Private bmpRect As Bitmap                                          ''~v106I~''+v210R~
     Private scaleNew As Double                                         ''~v106I~
     Private lineStyle As Integer()                                     ''~v138I~
     '*  Private jpWriting() As String = {"ja", "日本語", "ja", "右縦書き", "ja", "左縦書き", "ja", "横書き右", "ja", "横書き左"} ''~v141I~''~v192R~
     '*  Private jpWriting() As String = {"ja", "日本語", "ja", "右縦書き", "ja", "左縦書き", "ja", "横書き右", "ja", "横書き左", "ja", "縦２段右", "ja", "縦２段左"} ''~v192R~''~v199R~
-'*  Private jpWriting() As String = {"ja", "日本語", "ja", "右縦書き", "ja", "左縦書き", "ja", "横書き右", "ja", "横書き左", "ja", "縦２段右", "ja", "縦２段左", "ja", "横２頁左", "ja", "横２頁右"} ''~v199I~''~v200R~
-'*  Private jpWriting() As String = {"ja", "日本語", "ja", "右縦書き", "ja", "左縦書き", "ja", "横書き右", "ja", "横書き左", "ja", "縦２段右", "ja", "縦２段左", "ja", "横２頁左", "ja", "横２頁右","en","英語２頁"} ''~v200R~''~v201R~
-    Private jpWriting() As String = {"ja", "日本語", "ja", "右縦書き", "ja", "左縦書き", "ja", "横書き右", "ja", "横書き左", "ja", "縦２段右", "ja", "縦２段左", "ja", "横２頁左", "ja", "横２頁右"}''~v201I~
+    '*  Private jpWriting() As String = {"ja", "日本語", "ja", "右縦書き", "ja", "左縦書き", "ja", "横書き右", "ja", "横書き左", "ja", "縦２段右", "ja", "縦２段左", "ja", "横２頁左", "ja", "横２頁右"} ''~v199I~''~v200R~
+    '*  Private jpWriting() As String = {"ja", "日本語", "ja", "右縦書き", "ja", "左縦書き", "ja", "横書き右", "ja", "横書き左", "ja", "縦２段右", "ja", "縦２段左", "ja", "横２頁左", "ja", "横２頁右","en","英語２頁"} ''~v200R~''~v201R~
+    Private jpWriting() As String = {"ja", "日本語", "ja", "右縦書き", "ja", "左縦書き", "ja", "横書き右", "ja", "横書き左", "ja", "縦２段右", "ja", "縦２段左", "ja", "横２頁左", "ja", "横２頁右"} ''~v201I~
     '*  Private jpWritingE() As String = {"ja", "Japanese", "ja", "Jp-VR2L", "ja", "Jp-VL2R", "ja", "Jp-HR2L", "ja", "Jp-HL2R"} ''~v141I~''~v192R~
     '*  Private jpWritingE() As String = {"ja", "Japanese", "ja", "Jp-VR2L", "ja", "Jp-VL2R", "ja", "Jp-HR2L", "ja", "Jp-HL2R", "ja", "Jp-V2R2L", "ja", "Jp-V2L2R"} ''~v192I~''~v199R~
     '*  Private jpWritingE() As String = {"ja", "Japanese", "ja", "Jp-VR2L", "ja", "Jp-VL2R", "ja", "Jp-HR2L", "ja", "Jp-HL2R", "ja", "Jp-V2R2L", "ja", "Jp-V2L2R", "ja", "Jp-H2L2R", "ja", "Jp-H2R2L"} ''~v199I~''~v200R~
-'*  Private jpWritingE() As String = {"ja", "Japanese", "ja", "Jp-VR2L", "ja", "Jp-VL2R", "ja", "Jp-HR2L", "ja", "Jp-HL2R", "ja", "Jp-V2R2L", "ja", "Jp-V2L2R", "ja", "Jp-H2L2R", "ja", "Jp-H2R2L", "en", "EN-2Page"} ''~v200R~''~v201R~
-    Private jpWritingE() As String = {"ja", "Japanese", "ja", "Jp-VR2L", "ja", "Jp-VL2R", "ja", "Jp-HR2L", "ja", "Jp-HL2R", "ja", "Jp-V2R2L", "ja", "Jp-V2L2R", "ja", "Jp-H2L2R", "ja", "Jp-H2R2L"}''~v201I~
+    '*  Private jpWritingE() As String = {"ja", "Japanese", "ja", "Jp-VR2L", "ja", "Jp-VL2R", "ja", "Jp-HR2L", "ja", "Jp-HL2R", "ja", "Jp-V2R2L", "ja", "Jp-V2L2R", "ja", "Jp-H2L2R", "ja", "Jp-H2R2L", "en", "EN-2Page"} ''~v200R~''~v201R~
+    Private jpWritingE() As String = {"ja", "Japanese", "ja", "Jp-VR2L", "ja", "Jp-VL2R", "ja", "Jp-HR2L", "ja", "Jp-HL2R", "ja", "Jp-V2R2L", "ja", "Jp-V2L2R", "ja", "Jp-H2L2R", "ja", "Jp-H2R2L"} ''~v201I~
     Private Const SORT_VLINE_RTL = 1       '*sort vertical line by X:largeX-->smallX''~v140I~
     Private Const SORT_VLINE_LTR = 2       '*sort horizontal line by Y:smallY-->largeY''~v140I~''~v141R~
     Private Const SORT_HLINE_RTL = 3       '*sort horizontal line by Y:smallY-->largeY''~v141R~
@@ -115,7 +116,7 @@ Public Class Cocr
     '*  Private sortOption As Integer = 0                                  ''~v138I~''~v140R~
     '*  Private listLines As List(Of OcrLine)                            ''~v140R~''~v192R~
     Private listLines As List(Of OcrLineV2)                         ''~v192I~
-'*  Private swPointChangeByMax As Boolean = True                         ''~v153I~''~v200R~
+    '*  Private swPointChangeByMax As Boolean = True                         ''~v153I~''~v200R~
     Private swPointChangeByMax As Boolean = False '* by average        ''~v200I~
     Private langTag As String                                          ''~v177I~
     Private charH As Double()                                          ''~v178I~
@@ -212,7 +213,7 @@ Public Class Cocr
         Return tag
     End Function
     '**************************************************                ''~v141I~
-'*  Public Sub setWritingOption(Pname As String)                      ''~v141I~''~v200R~
+    '*  Public Sub setWritingOption(Pname As String)                      ''~v141I~''~v200R~
     Private Sub setWritingOption(Pname As String)                      ''~v200I~
         Dim sortopt As Integer = 0                                       ''~v141I~
         Dim jpw() As String                                            ''~v141I~
@@ -253,7 +254,7 @@ Public Class Cocr
     '* set clip box info before extact                                 ''~v106I~
     Public Sub setRect(PswRectBMP As Boolean, PbmpRect As Bitmap, PscaleNew As Double, PclipRect As Rectangle) ''~v106I~
         swRectBMP = PswRectBMP                                         ''~v106I~
-        bmpRect = PbmpRect                                             ''~v106I~
+        '*      bmpRect = PbmpRect                                             ''~v106I~''+v210R~
         scaleNew = PscaleNew                                           ''~v106I~
         clipRect = PclipRect                                           ''~v106I~
         '*Trace.W("iOCR:setrect cliprect X=" & clipRect.X & ",Y=" & clipRect.Y & ",W=" & clipRect.Width & ",H=" & clipRect.Height) ''~v155R~''~v192R~''~v201R~
@@ -548,7 +549,7 @@ Public Class Cocr
                         adjustMarkingBoxInit(angle, msin, mcos) '*get sin cosin''~v197R~
                     End If                                             ''~v197R~
                     '*Trace.W("Class10:MarkWords linesHeader ctr=" & lines.Count() & ",angle=" & angle) ''~v197R~''~v201R~
-                    '*printLinesWordsRect("markWords HeaderLin", linesHeader) ''~v197R~''+v201R~
+                    '*printLinesWordsRect("markWords HeaderLin", linesHeader) ''~v197R~''~v201R~
                     Continue Do                                        ''~v197I~
                 End If                                                 ''~v197M~
                 If linesFooter IsNot Nothing And Not swMarkFooter Then      ''~v197I~
@@ -560,7 +561,7 @@ Public Class Cocr
                         adjustMarkingBoxInit(angle, msin, mcos) '*get sin cosin''~v197I~
                     End If                                             ''~v197I~
                     '*Trace.W("Class10:MarkWords linesFooter ctr=" & lines.Count() & ",angle=" & angle) ''~v197I~''~v201R~
-                    '*printLinesWordsRect("markWords Footer", linesFooter) ''~v197I~''+v201R~
+                    '*printLinesWordsRect("markWords Footer", linesFooter) ''~v197I~''~v201R~
                     Continue Do                                        ''~v197I~
                 End If                                                 ''~v197I~
                 Exit Do                                                ''~v197I~
@@ -869,8 +870,8 @@ Public Class Cocr
                         Dim diffw As Double = Abs(ww - wwo)                ''~v138I~
                         Dim rateh As Double = diffh / hho                 ''~v138R~
                         Dim ratew As Double = diffw / wwo                 ''~v138I~
-                                              '*Trace.W("chkLineStyle Direction point ww=" & ww & ",wwo=" & wwo & ",diffw=" & diffw & ",ratew=" & ratew) ''~v138R~''~v155R~''~v176R~''~v178R~''~v200R~''~v201R~
-                                              '*Trace.W("chkLineStyle Direction point hh=" & hh & ",hho=" & hho & ",diffh=" & diffh & ",rateh=" & rateh) ''~v138I~''~v155R~''~v176R~''~v178R~''~v200R~''~v201R~
+                        '*Trace.W("chkLineStyle Direction point ww=" & ww & ",wwo=" & wwo & ",diffw=" & diffw & ",ratew=" & ratew) ''~v138R~''~v155R~''~v176R~''~v178R~''~v200R~''~v201R~
+                        '*Trace.W("chkLineStyle Direction point hh=" & hh & ",hho=" & hho & ",diffh=" & diffh & ",rateh=" & rateh) ''~v138I~''~v155R~''~v176R~''~v178R~''~v200R~''~v201R~
                         If Min(ratew, rateh) > RATE_POINT_CHANGED Then      ''~v138R~
                             '*Trace.W("chkLineStyle Direction pointchange ADD_CRLF ii=" & ii & ",type prev=" & ls(ii - 1) & ",curr=" & ls(ii))  ''~v138R~''~v155R~''~v176R~''~v178R~''~v200R~''~v201R~
                             ls(ii - 1) = ls(ii - 1) Or LS_ADD_CRLF  '* add crlf to prev line''~v138R~
@@ -1048,9 +1049,9 @@ Public Class Cocr
         Dim centero As Double                                          ''~v176R~
         Dim swChange As Boolean = False                                  ''~v176I~
         '*      For Each line As OcrLine In PlistLines                         ''~v176I~''~v192R~
-        '*printLinesWords("chkSameLineAfterSort entry", PlistLines)          ''~v200I~''+v201R~
+        '*printLinesWords("chkSameLineAfterSort entry", PlistLines)          ''~v200I~''~v201R~
         For Each line As OcrLineV2 In PlistLines                       ''~v192I~
-            '*printLineRect("chkSameLineAfterSort", line)                 ''~v199I~''+v201R~
+            '*printLineRect("chkSameLineAfterSort", line)                 ''~v199I~''~v201R~
             type = Pls(ii)                                             ''~v176I~
             dirH = (type And LS_HORIZONTAL) <> 0       '*horizontal    ''~v176I~
             bound1 = Pbound1(ii)                                       ''~v176I~
@@ -1092,7 +1093,7 @@ Public Class Cocr
             ii += 1                                                    ''~v176I~
         Next                                                           ''~v176I~
         '*Trace.W("chkSameLineAfterSort rc=" & swChange)                 ''~v176I~''~v178R~''~v199R~''~v201R~
-        '*printLinesWords("chkSameLineAfterSort exit", PlistLines)           ''~v200I~''+v201R~
+        '*printLinesWords("chkSameLineAfterSort exit", PlistLines)           ''~v200I~''~v201R~
         Return swChange                                                ''~v176I~
     End Function                                                       ''~v176R~
     '*************************************************************     ''~v138I~
@@ -1120,7 +1121,7 @@ Public Class Cocr
         Dim chsz, rate, diff As Double                                   ''~v178I~
         Dim rc As Boolean = False                                        ''~v178R~
         '***********                                                       ''~v178I~
-        '*printLineRect("chkWordDistance", Pline)                        ''~v196R~''+v201R~
+        '*printLineRect("chkWordDistance", Pline)                        ''~v196R~''~v201R~
         If Pwordo Is Nothing Then '*top word                                ''~v178I~
             Return False                                               ''~v178I~
         End If                                                         ''~v178I~
@@ -1150,7 +1151,7 @@ Public Class Cocr
         Dim chsz, diff As Double                                       ''~v196I~
         Dim rc As Boolean = False                                      ''~v196I~
         '***********                                                   ''~v196I~
-        '*printLineRect("chkWordDistanceHeader", Pline)                        ''~v196I~''~v197R~''+v201R~
+        '*printLineRect("chkWordDistanceHeader", Pline)                        ''~v196I~''~v197R~''~v201R~
         If Pwordo Is Nothing Then '*top word                           ''~v196I~
             Return False                                               ''~v196I~
         End If                                                         ''~v196I~
@@ -1182,8 +1183,8 @@ Public Class Cocr
             If swGetHeader And phaseGetHeader = PGH_GETHEADER Then           ''~v196I~
                 Return makeLinesHeader(Plen)                           ''~v196I~
             End If                                                     ''~v196I~
-        	'*printLinesWords("makeLines entry",listLines)               ''~v200I~''+v201R~
-                                                                       ''~v200I~
+            '*printLinesWords("makeLines entry",listLines)               ''~v200I~''~v201R~
+            ''~v200I~
             For Each line As OcrLineV2 In listLines                    ''~v192I~
                 '               sb.Append(line.Text)                                   ''~v104R~
                 Dim type = lineStyle(lineno)                           ''~v178I~
@@ -1213,7 +1214,7 @@ Public Class Cocr
                         Else                                               ''~v138I~
                             If (type And LS_ADD_SPACE) <> 0 Then           ''~v138R~
                                 sb.Append(" "c)  '* double CRLF to avoid eol concatination''~v138I~
-                                                              '*Trace.W("makeLines addspace")             ''~v138I~''~v155R~''~v200R~''~v201R~
+                                '*Trace.W("makeLines addspace")             ''~v138I~''~v155R~''~v200R~''~v201R~
                             End If                                         ''~v138R~
                         End If                                             ''~v138I~
                     End If    ''~v138I~
@@ -1233,7 +1234,7 @@ Public Class Cocr
     End Function
     '*************************************************************     ''~v196I~
     Public Function makeLinesHeader(Plen As Integer) As String         ''~v196I~
-        '*printLinesWords("makeLinesHeader entry", listLines)            ''~v196I~''+v201R~
+        '*printLinesWords("makeLinesHeader entry", listLines)            ''~v196I~''~v201R~
         Dim sb = New StringBuilder(Plen * 2)                           ''~v196I~
         Dim sw1st As Boolean = True                                      ''~v196I~
         For Each line As OcrLineV2 In listLines                        ''~v196I~
@@ -1560,7 +1561,7 @@ Public Class Cocr
             '*          Trace.W("type=" & Pls(ii) & ",bound1=" & Pbound1(ii) & ",bound2=" & Pbound2(ii) & ",text=" & PlistLines(ii).Text) ''~v146I~''~v147R~''~v155R~''~v176R~''~v178R~
             ii += 1                                                      ''~v140I~
         Next                                                           ''~v140I~
-        '*printLinesWords("sortLines exit", PlistLines)                       ''~v196I~''+v201R~
+        '*printLinesWords("sortLines exit", PlistLines)                       ''~v196I~''~v201R~
     End Sub                                                    ''~v140I~
     '*************************************************************     ''~v196I~
     Private Function getCenterY(Plist As IReadOnlyList(Of OcrLine), PminTop As Double, PmaxBottom As Double) As Double ''~v196I~
@@ -1586,7 +1587,7 @@ Public Class Cocr
                 lowerTop = brectTop.Y                                    ''~v196I~
                 upperBottom = 0.0                                        ''~v196I~
                 '*Trace.W("class10:getCenterY lower line top=" & lowerTop & ",boundary=" & boundary) ''~v196I~''~v201R~
-                '*printLineRect("getCenterY", line)                      ''~v196I~''+v201R~
+                '*printLineRect("getCenterY", line)                      ''~v196I~''~v201R~
             ElseIf brectTop.Y < boundary And brectLast.Y > boundary Then 'override boundary''~v196I~
                 '*search max gap                                       ''~v196I~
                 Dim maxGap As Double = 0.0                               ''~v196I~
@@ -1610,7 +1611,7 @@ Public Class Cocr
                     brectPrev = brect                                  ''~v196I~
                 Next                                                   ''~v196I~
                 '*Trace.W("class10:getCenterY upper and lower line top=" & lowerTop & ",upperBotom=" & upperBottom & ",boundaty=" & boundary) ''~v196I~''~v201R~
-                '*printLineRect("getCenterY", line)                      ''~v196I~''+v201R~
+                '*printLineRect("getCenterY", line)                      ''~v196I~''~v201R~
             Else                                                       ''~v196I~
                 Continue For                                           ''~v196I~
             End If                                                      ''~v196I~
@@ -1865,7 +1866,7 @@ Public Class Cocr
         Dim lineNo As Integer = 0                                      ''~v197I~
         For Each line As OcrLine In Plist                              ''~v197I~
             Trace.W("Class10:printLines lineNo=" & lineNo & ",Text=" & line.Text) ''~v197I~
-            '*printLineRect("printLinesWordsRect", line)                  ''~v197R~''+v201R~
+            '*printLineRect("printLinesWordsRect", line)                  ''~v197R~''~v201R~
             lineNo += 1                                                ''~v197I~
         Next                                                           ''~v197I~
         Trace.W("Class10:printLinesWords*EndL")                        ''~v197I~
@@ -1893,7 +1894,7 @@ Public Class Cocr
         For Each line As OcrLine In Plist                              ''~v197I~
             Trace.W("Class10:printLines lineNo=" & lineNo & ",Text=" & line.Text) ''~v197I~
             '*            printWords(CType(line.Words, List(Of OcrWord)))''~v197I~
-            '*printLineRect("printLinesWordsRect", line)                  ''~v197R~''+v201R~
+            '*printLineRect("printLinesWordsRect", line)                  ''~v197R~''~v201R~
             lineNo += 1                                                ''~v197I~
         Next                                                           ''~v197I~
         Trace.W("Class10:printLinesWords*ReadOnly*EndL")               ''~v197I~
@@ -2060,7 +2061,7 @@ Public Class Cocr
     End Function                                                       ''~v199I~
     '*************************************************************     ''~v196I~
     Private Sub getLineHeight(Pline As OcrLine, ByRef PhhMax As Double, ByRef PbottomY As Double) ''~v196R~''~v197R~
-        '*printLineRect("getLineHeight", Pline)                           ''~v196I~''+v201R~
+        '*printLineRect("getLineHeight", Pline)                           ''~v196I~''~v201R~
         Dim hhMax As Double = 0.0                                      ''~v196I~
         Dim bottomY As Double = 0.0                                    ''~v196I~
         Dim brect As Rect                                              ''~v196I~
@@ -2077,7 +2078,7 @@ Public Class Cocr
     End Sub                                                            ''~v196R~
     '*************************************************************     ''~v197I~
     Private Sub getLineRect(Pline As OcrLine, ByRef PX1 As Double, ByRef PY1 As Double, ByRef PX2 As Double, ByRef PY2 As Double) ''~v197R~
-        '*printLineRect("getLineRect", Pline)                            ''~v197R~''+v201R~
+        '*printLineRect("getLineRect", Pline)                            ''~v197R~''~v201R~
         Dim topY As Double = 0.0                                       ''~v197I~
         Dim bottomY As Double = 0.0                                    ''~v197I~
         Dim leftX As Double = 0.0                                      ''~v197I~
@@ -2114,7 +2115,7 @@ Public Class Cocr
     End Sub                                                            ''~v197I~
     '*************************************************************     ''~v199I~
     Private Sub getLineRect(Pline As OcrLineV2, ByRef PX1 As Double, ByRef PY1 As Double, ByRef PX2 As Double, ByRef PY2 As Double) ''~v199I~
-        '*printLineRect("getLineRect", Pline)                            ''~v199I~''+v201R~
+        '*printLineRect("getLineRect", Pline)                            ''~v199I~''~v201R~
         Dim topY As Double = 0.0                                       ''~v199I~
         Dim bottomY As Double = 0.0                                    ''~v199I~
         Dim leftX As Double = 0.0                                      ''~v199I~
@@ -2194,14 +2195,14 @@ Public Class Cocr
         Dim bottom0Max As Double = 0.0                                 ''~v197I~
         Dim top0, top1, bottom0, diff As Double                           ''~v197R~
         '************************                                      ''~v197I~
-        '*printLinesWords("getHeaderBottomY Entry", Plist)               ''~v197R~''+v201R~
+        '*printLinesWords("getHeaderBottomY Entry", Plist)               ''~v197R~''~v201R~
         '* get topword bottom with double space to 2nd word            ''~v197R~
         For Each line As OcrLine In Plist                              ''~v197I~
             brect0 = line.Words.Item(0).BoundingRect                   ''~v197I~
             bottom0 = brect0.Y + brect0.Height                             ''~v197I~
             If bottom0Min > bottom0 Then                                      ''~v197I~
                 '*Trace.W("Class10:getHeaderBottomY OLD bottom0Min=" & bottom0Min & ",bottom0=" & bottom0)''~v197R~''~v201R~
-                '*printLineRect("getHeaderBottomY ", line)               ''~v197R~''+v201R~
+                '*printLineRect("getHeaderBottomY ", line)               ''~v197R~''~v201R~
                 bottom0Min = bottom0                                     ''~v197I~
             End If                                                     ''~v197I~
         Next                                                           ''~v197I~
@@ -2213,11 +2214,11 @@ Public Class Cocr
                 Continue For                                           ''~v197I~
             End If                                                     ''~v197I~
             '*Trace.W("Class10:getHeaderBottomY top0=" & top0 & " < bottom0Min=" & bottom0Min)''~v197R~''~v201R~
-            '*printLineRect("getHeaderBottomY ", line)                   ''~v197R~''+v201R~
+            '*printLineRect("getHeaderBottomY ", line)                   ''~v197R~''~v201R~
             bottom0 = brect0.Y + brect0.Height                         ''~v197I~
             If bottom0Max < bottom0 Then                                      ''~v197I~
                 '*Trace.W("Class10:getHeaderBottomY OLD bottom0Max=" & bottom0Max & ",bottom0=" & bottom0)''~v197R~''~v201R~
-                '*printLineRect("getHeaderBottomY ", line)               ''~v197R~''+v201R~
+                '*printLineRect("getHeaderBottomY ", line)               ''~v197R~''~v201R~
                 bottom0Max = bottom0                                     ''~v197I~
             End If                                                     ''~v197I~
         Next                                                           ''~v197I~
@@ -2231,7 +2232,7 @@ Public Class Cocr
                 Continue For                                           ''~v197I~
             End If                                                     ''~v197I~
             '*Trace.W("Class10:getHeaderBottomY top0=" & top0 & " < bottom0Min=" & bottom0Min)''~v197R~''~v201R~
-            '*printLineRect("getHeaderBottomY ", line)                   ''~v197R~''+v201R~
+            '*printLineRect("getHeaderBottomY ", line)                   ''~v197R~''~v201R~
             ctrWord = line.Words.Count                                 ''~v197I~
             If ctrWord = 1 Then                                               ''~v197I~
                 Continue For                                           ''~v197I~
@@ -2245,7 +2246,7 @@ Public Class Cocr
                 If top1Min > top1 Then                                 ''~v197R~
                     '*Trace.W("Class10:getHeaderBottomY OLD top1Min=" & top1Min & ",top1Min=" & top1Min & ",bottom0=" & bottom0 & ",diff=" & diff)''~v197R~''~v201R~
                     top1Min = top1                                       ''~v197I~
-                    '*printLineRect("getHeaderBottomY ", line)           ''~v197R~''+v201R~
+                    '*printLineRect("getHeaderBottomY ", line)           ''~v197R~''~v201R~
                 End If                                                 ''~v197I~
             End If                                                     ''~v197I~
         Next                                                           ''~v197I~
@@ -2273,7 +2274,7 @@ Public Class Cocr
         Dim topMin As Double = PscrHeight                              ''~v197R~
         Dim heightTopMax As Double = 0.0                               ''~v197I~
         '************************                                      ''~v197I~
-        '*printLinesWords("getHeaderBottomY Entry", Plist)               ''~v197I~''+v201R~
+        '*printLinesWords("getHeaderBottomY Entry", Plist)               ''~v197I~''~v201R~
         ctrLine = Plist.Count                                            ''~v197I~
         Y1s = New Double(ctrLine) {}                                        ''~v197I~
         Y2s = New Double(ctrLine) {}                                        ''~v197I~
@@ -2283,8 +2284,8 @@ Public Class Cocr
         '* search min top ****************************************     ''~v197I~''~v198R~
         For Each line As OcrLine In Plist                              ''~v197I~
             '*Trace.W("Class10:searchTop lineNo=" & lineno)              ''~v197I~''~v201R~
-            '*printLineRect("getHeaderBottomY", line)                    ''~v197I~''+v201R~
-'*          lineStyle = getLineStyle(line, False) '*chk text in word=False''~v197I~''~v201R~
+            '*printLineRect("getHeaderBottomY", line)                    ''~v197I~''~v201R~
+            '*          lineStyle = getLineStyle(line, False) '*chk text in word=False''~v197I~''~v201R~
             lineStyle = getLineStyle(line, True) '*chk text in word=False''~v201I~
             If lineStyle = LS_HORIZONTAL Then                                 ''~v197I~
                 getLineRect(line, Nothing, top, Nothing, bottom)       ''~v197I~
@@ -2324,7 +2325,7 @@ Public Class Cocr
         floorTopMax = floorTop                                           ''~v197I~
         lineno = 0                                                        ''~v197M~
         For Each line As OcrLine In Plist                              ''~v197I~
-            '*printLineRect("getHeaderBottomY", line)                    ''~v197I~''+v201R~
+            '*printLineRect("getHeaderBottomY", line)                    ''~v197I~''~v201R~
             top = Y1s(lineno)                                           ''~v197I~
             bottom = Y2s(lineno)                                        ''~v197I~
             height = HHs(lineno)                                         ''~v197I~
@@ -2356,7 +2357,7 @@ Public Class Cocr
             '* chk vertical line 2nd word is under the floor **********    ''~v198I~
             lineno = 0                                                    ''~v197I~
             For Each line As OcrLine In Plist                          ''~v197I~
-                '*printLineRect("getHeaderBottomY", line)                ''~v197I~''+v201R~
+                '*printLineRect("getHeaderBottomY", line)                ''~v197I~''~v201R~
                 lineStyle = LSs(lineno)                                  ''~v197I~
                 top = Y1s(lineno)                                       ''~v197I~
                 bottom = Y2s(lineno)                                    ''~v197I~
@@ -2416,9 +2417,9 @@ Public Class Cocr
         Dim topMinSHeight As Double = 0.0                                ''~v197I~
         Dim lineBottomM As OcrLine = Nothing                             ''~v197R~
         '************************                                      ''~v197I~
-        '*printLinesWords("getFooterTopY Entry", Plist)                  ''~v197I~''+v201R~
+        '*printLinesWords("getFooterTopY Entry", Plist)                  ''~v197I~''~v201R~
         For Each line As OcrLine In Plist                              ''~v197I~
-            '*printLineRect("getFooterTopY", line)                       ''~v197I~''+v201R~
+            '*printLineRect("getFooterTopY", line)                       ''~v197I~''~v201R~
             ctrWord = line.Words.Count                                 ''~v197I~
             word = line.Words.Item(ctrWord - 1)                          ''~v197I~
             brect = word.BoundingRect                                   ''~v197I~
@@ -2482,7 +2483,7 @@ Public Class Cocr
         Dim brect As Rect                                      ''~v197I~
         Dim topY As Integer = 0                                        ''~v197I~
         '************************                                      ''~v197I~
-        '*printLinesWords("getFooterTopY Entry", Plist)                  ''~v197I~''+v201R~
+        '*printLinesWords("getFooterTopY Entry", Plist)                  ''~v197I~''~v201R~
         For Each line As OcrLine In Plist                              ''~v197I~
             ctrWord = line.Words.Count                                 ''~v197I~
             brect = line.Words.Item(ctrWord - 1).BoundingRect            ''~v197I~
@@ -2490,7 +2491,7 @@ Public Class Cocr
             bottom = brect.Y + brect.Height                               ''~v197I~
             If topMax < top Then                                         ''~v197I~
                 '*Trace.W("Class10:getFooterTopY top=" & top & ",OLD topMax=" & topMax) ''~v197I~''~v201R~
-                '*printLineRect("getFooterTopY ", line)                  ''~v197I~''+v201R~
+                '*printLineRect("getFooterTopY ", line)                  ''~v197I~''~v201R~
                 topMax = top                                           ''~v197I~
             End If                                                     ''~v197I~
             If bottomMax < bottom Then                                        ''~v197R~
@@ -2506,10 +2507,10 @@ Public Class Cocr
             bottom = brect.Y + brect.Height                                ''~v197I~
             If bottom > topMax Then                                     ''~v197R~
                 '*Trace.W("Class10:getFooterTopY topMax=" & topMax & " < bottom=" & bottom) ''~v197R~''~v201R~
-                '*printLineRect("getFooterTopY ", line)                  ''~v197R~''+v201R~
+                '*printLineRect("getFooterTopY ", line)                  ''~v197R~''~v201R~
                 If topMin > top Then                                          ''~v197R~
                     '*Trace.W("Class10:getFooterY OLD topMin=" & topMin & ",top=" & top) ''~v197R~''~v201R~
-                    '*printLineRect("getFooterTopY ", line)              ''~v197R~''+v201R~
+                    '*printLineRect("getFooterTopY ", line)              ''~v197R~''~v201R~
                     topMin = top                                         ''~v197R~
                 End If                                                 ''~v197R~
             End If                                                     ''~v197I~
@@ -2530,7 +2531,7 @@ Public Class Cocr
                     If bottomMax < bottom Then                          ''~v197R~
                         '*Trace.W("Class10:getFooterTopY OLD bottomMax=" & bottomMax & ",bottom=" & bottom & ",diff=" & diff) ''~v197R~''~v201R~
                         bottomMax = bottom                               ''~v197R~
-                        '*printLineRect("getFooterTopY ", line)          ''~v197R~''+v201R~
+                        '*printLineRect("getFooterTopY ", line)          ''~v197R~''~v201R~
                     End If                                             ''~v197R~
                 End If                                                 ''~v197R~
             Next                                                       ''~v197R~
@@ -2554,7 +2555,7 @@ Public Class Cocr
         Dim bottomLine As Double = 0.0                                 ''~v197I~
         Dim topMin As Double = PscrHeight                              ''~v197M~
         '************************                                      ''~v197I~
-        '*printLinesWords("getFooterTopY Entry", Plist)                  ''~v197I~''+v201R~
+        '*printLinesWords("getFooterTopY Entry", Plist)                  ''~v197I~''~v201R~
         For Each line As OcrLine In Plist                              ''~v197I~
             ctrWord = line.Words.Count                                 ''~v197I~
 '*          If ctrWord = 1 Or getLineStyle(line,False) <> LS_VERTICAL Then''~v197R~''~v201R~
@@ -2578,7 +2579,7 @@ Public Class Cocr
 	                '*Trace.W("Class10:getFooterTopY New topMin=" & top & ",Old topMin=" & topMin)''~v197I~''~v201R~
                 	topMin=top                                         ''~v197I~
                 end if                                                 ''~v197I~
-                '*printLineRect("getFooterTopY ", line)                  ''~v197I~''+v201R~
+                '*printLineRect("getFooterTopY ", line)                  ''~v197I~''~v201R~
             end If                                                     ''~v197R~
             If bottomLine < top + hhWord Then                                   ''~v197I~
                 bottomLine = top + hhWord                                  ''~v197I~
@@ -2622,7 +2623,7 @@ Public Class Cocr
                     '*Trace.W("Class10:getFooterTopY New topMin=" & top & ",Old topMin=" & topMin) ''~v197I~''~v201R~
                     topMin = top                                         ''~v197I~
                 End If                                                 ''~v197I~
-                '*printLineRect("getFooterTopY ", line)                  ''~v197I~''+v201R~
+                '*printLineRect("getFooterTopY ", line)                  ''~v197I~''~v201R~
             End If                                                     ''~v197I~
         Next                                                           ''~v197I~
         topY = CType(bottomMax + 1, Integer)                           ''~v197I~
@@ -2648,9 +2649,9 @@ Public Class Cocr
         Dim bottomMax As Double = 0.0                                  ''~v197I~
         Dim swFooter As Boolean                                        ''~v197I~
         '************************                                      ''~v197I~
-        '*printLinesWords("getFooterTopY Entry", Plist)                  ''~v197I~''+v201R~
+        '*printLinesWords("getFooterTopY Entry", Plist)                  ''~v197I~''~v201R~
         For Each line As OcrLine In Plist                              ''~v197I~
-            '*printLineRect("getFooterTopY", line)                       ''~v197I~''+v201R~
+            '*printLineRect("getFooterTopY", line)                       ''~v197I~''~v201R~
 '*          lineStyle = getLineStyle(line, False)                       ''~v197R~''~v201R~
             lineStyle = getLineStyle(line, True )                      ''~v201I~
             If lineStyle <> LS_VERTICAL Then                                  ''~v197I~
@@ -2706,7 +2707,7 @@ Public Class Cocr
                 If lineStyle = LS_VERTICAL Then                              ''~v197I~
                     Continue For                                       ''~v197I~
                 End If                                                 ''~v197I~
-                '*printLineRect("getFooterTopY chk Single", line)        ''~v197I~''+v201R~
+                '*printLineRect("getFooterTopY chk Single", line)        ''~v197I~''~v201R~
                 If lineStyle = LS_SINGLE Then                             ''~v197I~
                     brect1 = line.Words.Item(0).BoundingRect           ''~v197I~
                     top = brect1.Y                                       ''~v197I~
@@ -2746,7 +2747,7 @@ Public Class Cocr
             If bottom2Max <> 0.0 Then '*vertical line may be with appended footer''~v197R~
                 '*Trace.W("Class10:getFooterTopY bottom2Max=" & bottom2Max & " <> 0.0") ''~v197I~''~v201R~
                 For Each line As OcrLine In Plist                      ''~v197I~
-                    '*printLineRect("getFooterTopY chk Single vs Vertical", line) ''~v197I~''+v201R~
+                    '*printLineRect("getFooterTopY chk Single vs Vertical", line) ''~v197I~''~v201R~
 '*                  lineStyle = getLineStyle(line, False)               ''~v197R~''~v201R~
                     lineStyle = getLineStyle(line, True)               ''~v201I~
                     If lineStyle = LS_VERTICAL Then                          ''~v197I~
@@ -2806,7 +2807,7 @@ Public Class Cocr
         Dim topMax As Double = 0.0                                     ''~v198I~
         Dim heightTopMax As Double = 0.0                               ''~v198I~
         '************************                                      ''~v198I~
-        '*printLinesWords("getFooterTopY Entry", Plist)                  ''~v198R~''+v201R~
+        '*printLinesWords("getFooterTopY Entry", Plist)                  ''~v198R~''~v201R~
         ctrLine = Plist.Count                                          ''~v198I~
         Y1s = New Double(ctrLine) {}                                   ''~v198I~
         Y2s = New Double(ctrLine) {}                                   ''~v198I~
@@ -2816,9 +2817,9 @@ Public Class Cocr
         '* search lowest bottom word ****************************************''~v198R~
         For Each line As OcrLine In Plist                              ''~v198I~
             '*Trace.W("Class10:searchTop lineNo=" & lineno)              ''~v198I~''~v201R~
-            '*printLineRect("getFooterTopY", line)                       ''~v198R~''+v201R~
-'*          lineStyle = getLineStyle(line, False) '*chk text in word=False''~v198I~''~v201R~
-            lineStyle = getLineStyle(line, True ) '*chk text in word=False''~v201I~
+            '*printLineRect("getFooterTopY", line)                       ''~v198R~''~v201R~
+            '*          lineStyle = getLineStyle(line, False) '*chk text in word=False''~v198I~''~v201R~
+            lineStyle = getLineStyle(line, True) '*chk text in word=False''~v201I~
             If lineStyle = LS_HORIZONTAL Then                          ''~v198I~
                 getLineRect(line, Nothing, top, Nothing, bottom)       ''~v198I~
                 height = bottom - top                                  ''~v198I~
@@ -2867,7 +2868,7 @@ Public Class Cocr
         ceilingTopMin = ceilingTop                                     ''~v198I~
         lineno = 0                                                     ''~v198I~
         For Each line As OcrLine In Plist                              ''~v198I~
-            '*printLineRect("getFooterTopY", line)                       ''~v198R~''+v201R~
+            '*printLineRect("getFooterTopY", line)                       ''~v198R~''~v201R~
             top = Y1s(lineno)                                          ''~v198I~
             bottom = Y2s(lineno)                                       ''~v198I~
             height = HHs(lineno)                                       ''~v198I~
@@ -2908,7 +2909,7 @@ Public Class Cocr
             '* chk vertical line bottom 2nd word is upper of the ceiling **********''~v198R~
             lineno = 0                                                 ''~v198I~
             For Each line As OcrLine In Plist                          ''~v198I~
-                '*printLineRect("getFooterTopY", line)                   ''~v198R~''+v201R~
+                '*printLineRect("getFooterTopY", line)                   ''~v198R~''~v201R~
                 lineStyle = LSs(lineno)                                ''~v198I~
                 top = Y1s(lineno)                                      ''~v198I~
                 bottom = Y2s(lineno)                                   ''~v198I~
@@ -2963,7 +2964,7 @@ Public Class Cocr
     '*************************************************************     ''~v196I~
     Private Function getHeaderBottom(Plist As IReadOnlyList(Of OcrLine)) As Integer ''~v196R~
         '*Trace.W("Class10:getHeaderBottom bmp ww=" & bmpWidth & ",hh=" & bmpHeight) ''~v196R~''~v201R~
-        '*printLinesWords("getHeaderBottom Entry", Plist)                 ''~v196R~''+v201R~
+        '*printLinesWords("getHeaderBottom Entry", Plist)                 ''~v196R~''~v201R~
         Dim rc As Integer = getHeaderBottomY(Plist, bmpHeight)             ''~v196R~''~v197R~
         '*Trace.W("Class10:getHeaderBottom rc=" & rc)                    ''~v196I~''~v201R~
         Return rc                                                      ''~v196I~
@@ -3074,7 +3075,7 @@ Public Class Cocr
     '*************************************************************     ''~v196M~
     Private Sub getAverageCharSize(Pline As OcrLineV2, ByRef PhhAverage As Double, ByRef PwwAverage As Double, PswIgnoreSmall As Boolean) ''~v196M~''~v197R~
         '*Trace.W("Class10:getAvarageCharSize swIgnoreSmall=" & PswIgnoreSmall) ''~v197I~''~v201R~
-        '*printLineRect("getAverageCharSize", Pline)                     ''~v197I~''+v201R~
+        '*printLineRect("getAverageCharSize", Pline)                     ''~v197I~''~v201R~
         Dim hhTotal, wwTotal As Double                                 ''~v196M~
         Dim ctrChar As Integer = 0                                     ''~v196M~
         hhTotal = 0.0                                                  ''~v196M~
@@ -3170,11 +3171,11 @@ Public Class Cocr
             leftMin = 0.0                                              ''~v199I~
             rightMax = 0.0                                             ''~v199I~
             For Each line As OcrLineV2 In Plist                        ''~v199R~
-                '*printLineRect("getCenterX", line)                      ''~v199I~''+v201R~
+                '*printLineRect("getCenterX", line)                      ''~v199I~''~v201R~
                 lineStyle = line.lineStyle '*chk text in word=False    ''~v199R~
-            	swOverride = False                                     ''~v199I~
+                swOverride = False                                     ''~v199I~
                 If lineStyle <> LS_HORIZONTAL Then                     ''~v199R~
-'*                  Continue For                                       ''~v199R~
+                    '*                  Continue For                                       ''~v199R~
                     getLineRect(line, left, Nothing, right, Nothing)   ''~v199I~
                     If right < boundary Then                           ''~v199I~
                         If right > rightMax Then                       ''~v199I~
@@ -3231,14 +3232,14 @@ Public Class Cocr
                 gap = leftMin - rightMax                                   ''~v199I~
                 '*Trace.W("class10:getCenterX gap=" & gap & ",leftMin=" & leftMin & ",rightMax=" & rightMax & ",gapMaxCenterX=" & gapMaxCenterX)''~v199M~''~v201R~
                 If gap > gapMax Then                                   ''~v199R~
-                	gapMax = gap                                       ''~v199R~
-                	gapMaxCenterX = rightMax + gap / 2                 ''~v199R~
-                	'*Trace.W("class10:getCenterX gapMax=" & gapMax & ",leftMin=" & leftMin & ",rightMax=" & rightMax & ",gapMaxCenterX=" & gapMaxCenterX)''~v199R~''~v201R~
+                    gapMax = gap                                       ''~v199R~
+                    gapMaxCenterX = rightMax + gap / 2                 ''~v199R~
+                    '*Trace.W("class10:getCenterX gapMax=" & gapMax & ",leftMin=" & leftMin & ",rightMax=" & rightMax & ",gapMaxCenterX=" & gapMaxCenterX)''~v199R~''~v201R~
                     '*Trace.W("class10:for gap by gapRate="  & ((PmaxRight - PminLeft) * RATE_CENTERX_GAP))''~v199I~''~v201R~
-                	If gap > (PmaxRight - PminLeft) * RATE_CENTERX_GAP Then''~v199R~
-                    	'*Trace.W("class10:getCenterX exit by gap rate gap=" & gap & ",PmaxRight=" & PmaxRight & ",PminLeft=" & PminLeft)''~v199R~''~v201R~
-                    	Exit For                                       ''~v199R~
-                	End If                                             ''~v199R~
+                    If gap > (PmaxRight - PminLeft) * RATE_CENTERX_GAP Then ''~v199R~
+                        '*Trace.W("class10:getCenterX exit by gap rate gap=" & gap & ",PmaxRight=" & PmaxRight & ",PminLeft=" & PminLeft)''~v199R~''~v201R~
+                        Exit For                                       ''~v199R~
+                    End If                                             ''~v199R~
                 End If                                                 ''~v199R~
             End If                                                     ''~v199I~
         Next '*chkBoundary constant                                    ''~v199I~
@@ -3262,7 +3263,7 @@ Public Class Cocr
             leftMin = 0.0                                              ''~v199I~
             rightMax = 0.0                                             ''~v199I~
             For Each line As OcrLine In Plist                        ''~v199I~
-                '*printLineRect("getCenterXVertical", line)              ''~v199R~''+v201R~
+                '*printLineRect("getCenterXVertical", line)              ''~v199R~''~v201R~
                 '               lineStyle = line.lineStyle '*chk text in word=False    ''~v199R~
                 lineStyle = getLineStyle(line, True) '*chk text in word=true''~v199I~
                 getLineRect(line, left, Nothing, right, Nothing)        ''~v199I~
@@ -3321,11 +3322,11 @@ Public Class Cocr
             If leftMin <> 0 And rightMax <> 0 Then                     ''~v199I~
                 gap = leftMin - rightMax                               ''~v199I~
                 If gap > gapMax Then                                   ''~v199R~
-                	gapMax = gap                                       ''~v199R~
+                    gapMax = gap                                       ''~v199R~
                     gapMaxCenterX = rightMax + gap / 2                 ''~v199R~
                     '*Trace.W("class10:getCenterXVertical gap=" & gap & ",leftMin=" & leftMin & ",rightMax=" & rightMax & ",gapMaxCenterX=" & gapMaxCenterX)''~v199R~''~v201R~
                     '*Trace.W("class10:for gap by gapRate="  & ((PmaxRight - PminLeft) * RATE_CENTERX_GAP))''~v199R~''~v201R~
-                    If gap > (PmaxRight - PminLeft) * RATE_CENTERX_GAP Then''~v199R~
+                    If gap > (PmaxRight - PminLeft) * RATE_CENTERX_GAP Then ''~v199R~
                         '*Trace.W("class10:getCenterXVertical exit by gap rate gap=" & gap & ",PmaxRight=" & PmaxRight & ",PminLeft=" & PminLeft)''~v199R~''~v201R~
                         Exit For                                       ''~v199R~
                     End If                                             ''~v199R~
@@ -3349,7 +3350,7 @@ Public Class Cocr
         Dim maxRight As Double = 0.0                                   ''~v199I~
         '*      Dim minTop As Double = 0.0                                     ''~v199R~
         '*      Dim maxBottom As Double = 0.0                                  ''~v199R~
-        Dim centerX,left,right As Double                               ''~v199R~
+        Dim centerX, left, right As Double                               ''~v199R~
         '*      Dim centerY As Double
         Dim lineStyle, lineNo As Integer ''~v199R~
         '*************************************                         ''~v199I~
@@ -3360,11 +3361,11 @@ Public Class Cocr
         '*      For Each line As OcrLine In Plist                              ''~v199R~
         lineNo = 0
         For Each line As OcrLineV2 In listLinesV2                         ''~v199I~
-            lineStyle = getLineStyle(line, true) '*chk text in word=true''~v199R~
-	        '*Trace.W("Class10:setHorizontal2 lineStyle=0x" & Hex(lineStyle) & ",text=" & line.Text)''~v199I~''~v201R~
+            lineStyle = getLineStyle(line, True) '*chk text in word=true''~v199R~
+            '*Trace.W("Class10:setHorizontal2 lineStyle=0x" & Hex(lineStyle) & ",text=" & line.Text)''~v199I~''~v201R~
             line.lineStyle = lineStyle                                   ''~v199I~
-            getLineRect(line,left, Nothing, right, Nothing)            ''~v199R~
-            If minLeft = 0.0 Or left<minLeft                           ''~v199R~
+            getLineRect(line, left, Nothing, right, Nothing)            ''~v199R~
+            If minLeft = 0.0 Or left < minLeft Then                           ''~v199R~
                 minLeft = left                                         ''~v199R~
             End If                                                     ''~v199R~
             If right > maxRight Then                                   ''~v199R~
@@ -3424,7 +3425,7 @@ Public Class Cocr
                 '*              End If                                                 ''~v199R~
                 '*              listLinesUpper.Add(v2)                                 ''~v199R~
                 PlistV2.Add(v2)                                        ''~v199R~
-        		'*printLineRect("setHorizontal2 left line",v2)           ''~v199I~''+v201R~
+                '*printLineRect("setHorizontal2 left line",v2)           ''~v199I~''~v201R~
                 '*          End If                                                     ''~v199R~
                 '*          If swLower Then                                            ''~v199R~
             Else                                                       ''~v199I~
@@ -3437,7 +3438,7 @@ Public Class Cocr
                 '*                  v2.posLayout += LP_LEFT                            ''~v199R~
                 '*              End If                                                 ''~v199R~
                 '*              listLinesLower.Add(v2)                                 ''~v199R~
-        		'*printLineRect("setHorizontal2 right line",v2)          ''~v199I~''+v201R~
+                '*printLineRect("setHorizontal2 right line",v2)          ''~v199I~''~v201R~
                 PlistV2.Add(v2)                                        ''~v199R~
             End If                                                     ''~v199I~
         Next                                                           ''~v199I~
@@ -3449,22 +3450,22 @@ Public Class Cocr
         '*          PlistV2.Add(line)                                          ''~v199R~
         '*      Next                                                           ''~v199R~
         For Each line As OcrLineV2 In PlistV2                          ''~v199R~
-            Dim sbText As System.Text.StringBuilder = New System.Text.StringBuilder()''~v199R~
-            Dim sw1st as Boolean=true                                  ''~v200I~
+            Dim sbText As System.Text.StringBuilder = New System.Text.StringBuilder() ''~v199R~
+            Dim sw1st As Boolean = True                                  ''~v200I~
             For Each word As OcrWord In line.Words                     ''~v199R~
-        		If sortOption = SORT_H2_ENGLISH                        ''~v200M~
-                	if sw1st                                           ''~v200I~
-                    	sw1st=false                                    ''~v200I~
-                    else                                               ''~v200I~
-	                	sbText.Append(" ")                             ''~v200I~
-                    end if                                             ''~v200I~
-        		End If                                                 ''~v200M~
+                If sortOption = SORT_H2_ENGLISH Then                        ''~v200M~
+                    If sw1st Then                                           ''~v200I~
+                        sw1st = False                                    ''~v200I~
+                    Else                                               ''~v200I~
+                        sbText.Append(" ")                             ''~v200I~
+                    End If                                             ''~v200I~
+                End If                                                 ''~v200M~
                 sbText.Append(word.Text)                               ''~v199R~
             Next                                                       ''~v199I~
             line.Text = sbText.ToString()                              ''~v199I~
             '*Trace.W("Class10:setHorizontal2 line Text=" & line.Text)   ''~v199I~''~v201R~
         Next                                                           ''~v199I~
-        '*printLinesWords("setHorizontal2 exit",PlistV2)                 ''~v199R~''+v201R~
+        '*printLinesWords("setHorizontal2 exit",PlistV2)                 ''~v199R~''~v201R~
     End Sub                                                            ''~v199I~
 End Class
 '*************************************************************

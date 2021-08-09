@@ -1,5 +1,6 @@
-﻿'CID:''+v152R~:#72                             update#=  272;         ''~v152R~
+﻿'CID:''+v210R~:#72                             update#=  284;        ''~v210R~
 '************************************************************************************''~v017I~
+'v210 2021/08/06 support imagefile multi selection                     ''~v210I~
 'v152 2018/01/08 zoom also for rotated any degree                      ''~v151I~
 'v151 2018/01/07 show rotate degree on status bar                      ''~v151I~
 'v150 2018/01/07 cliprect shuld be adjusted when degree rotation because source bmp was expanded''~v150I~
@@ -62,11 +63,13 @@ Public Class Form2
     Private extractedBMP As Bitmap = Nothing                           ''~va08I~
     Private langTag As String                                          ''~v100R~
     Private swWordBMP As Boolean = False                               ''~v100R~
-    Private iOCR As Cocr = Nothing                                     ''~v100R~
+    ''  Private iOCR As Cocr = Nothing                                     ''~v100R~''~v210R~
+    Public iOCR As Cocr = Nothing                                     ''~v210I~
     Const SCALE_INITIAL = 1.0                                          ''~v100R~
     Const SCALE_RATE = 0.1                                             ''~v100R~
     Const SCALE_LIMIT_LOW = 0.01                                       ''~v100R~
-    Const LANG_TAG_JP = "ja"                                             ''~v@@@I~''~v100I~
+    '*  Const LANG_TAG_JP = "ja"                                             ''~v@@@I~''~v100I~''~v210R~
+    Public Const LANG_TAG_JP = "ja"                                    ''~v210I~
     Private xText As String = ""                                       ''~v100I~
     Private swEnglishDoc As Boolean = False                            ''~v100I~
     Private swInitialized As Boolean = False                            ''~v110I~
@@ -85,6 +88,8 @@ Public Class Form2
     Private swDegree As Boolean = False                                ''~va08I~
     Private ctrDegree As Integer = 0                                   ''~va08I~
     Private ctrDegreeMsg As Integer = 0                                ''~v151I~
+    Private fnmMultiSelect() As String                                 ''~v152I~
+    Public swNewForm3 As Boolean                                       ''~v210I~
     '************************************************
     Private Sub Form2_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load ''~7619R~
         Try                                                            ''~v111I~
@@ -753,7 +758,8 @@ Public Class Form2
         langTag = getSelectedLangTag()                                 ''~v100R~
 #End If                                                                ''~v100R~
         Dim swDoI2K As Boolean = False                                   ''~v017R~
-        Dim swNewForm3 As Boolean = False                              ''~v106I~
+        '*      Dim swNewForm3 As Boolean = False                              ''~v106I~''~v210R~
+        swNewForm3 = False                                             ''~v210I~
         If Form1.formText Is Nothing OrElse Form1.formText.IsDisposed Then ''~7411R~''~7521R~
             '           Form1.formText = New Form3()   ' open after extraction succeeded      ''~7410I~''~7411R~''~7521R~''~v106R~
             swNewForm3 = True                                            ''~v106I~
@@ -805,6 +811,18 @@ Public Class Form2
             Form1.formText.Show()                                          ''~7410R~''~7411R~''~7521R~''~7619R~
         End If                                                         ''~7619I~
     End Sub                                                            ''~7410I~
+    '*************************************************************     ''~v210I~
+    '*from FormMS                                                      ''~v210I~
+    '*************************************************************     ''~v210I~
+    Public Function Image2TextMultiSelect(Pfnm As String, PlangTag As String) As String ''~v210I~
+        imageFilename = Pfnm                                             ''~v210I~
+        langTag = PlangTag                                             ''~v210M~
+        Dim rc As Boolean = extractTextMultiSelect()                   ''~v210R~
+        If Not rc Then                                                         ''~v210I~
+            xText = ""                                                   ''~v210I~
+        End If                                                         ''~v210I~
+        Return xText                                                   ''~v210I~
+    End Function                                                      ''~v210I~
     '*************************************************************     ''~v032I~
     '* from Form15:send partial text                                   ''~v106I~
     Private Sub Image2TextPartial(PclipText As String)                 ''~v106I~
@@ -914,6 +932,42 @@ Public Class Form2
         End Try                                                        ''~v100R~
         Return swOK                                                    ''~v100R~
     End Function                                                       ''~v100R~
+    '*************************************************************     ''~v210I~
+    Private Function extractTextMultiSelect() As Boolean               ''~v210R~
+        Dim swOK As Boolean = False                                    ''~v210I~
+        Dim clipRectMS As Rectangle = New Rectangle(0, 0, 0, 0)             ''~v210I~
+        Dim scaleNewMS As Double = 1.0                                 ''~v210I~
+        Dim NotUsedBMP As Bitmap = Nothing                               ''~v210I~
+        Try                                                            ''~v210I~
+            xText = ""                                                 ''~v210I~
+            If CreateImage(imageFilename, orgBMP) Then     '* set seRectBMP=false,ctrDegree=0.0''+v210I~
+                '*          iOCR.setRect(swRectBMP, CType(PictureBox1.Image, Bitmap), scaleNew, clipRect)''~v210R~
+                iOCR.setRect(swRectBMP, NotUsedBMP, scaleNewMS, clipRectMS) ''~v210R~
+                Dim bmp As Bitmap                                          ''~v210I~
+                '*          If ctrDegree <> 0 Then                                     ''~v210R~
+                '*              bmp = rotateAnyBMP                                     ''~v210R~
+                '*          Else                                                       ''~v210R~
+                '*              bmp = orgBMP                                           ''~v210R~
+                '*          End If                                                     ''~v210R~
+                bmp = orgBMP                                               ''~v210I~
+                swOK = iOCR.extractText(imageFilename, bmp, langTag, xText) ''~v210I~
+                '*          extractedBMP = bmp                                         ''~v210R~
+                '*          If swOK Then                                               ''~v210R~
+                '*              If xText.Length = 0 Then                               ''~v210R~
+                '*                  showStatus(My.Resources.WARN_EXTRACTED_NULLSTR()) 'by setting of CurrentCulture''~v210R~
+                '*              Else                                                   ''~v210R~
+                '*                  showWords()                                        ''~v210R~
+                '*              End If                                                 ''~v210R~
+                '*          Else                                                       ''~v210R~
+                '*              showStatus(iOCR.statusMsg)                             ''~v210R~
+                '*          End If                                                     ''~v210R~
+                orgBMP.Dispose()                                           ''+v210I~
+            End If                                                       ''+v210I~
+        Catch ex As Exception                                          ''~v210I~
+            MessageBox.Show("extractText for " & imageFilename & " exception:" & ex.Message) ''+v210R~
+        End Try                                                        ''~v210I~
+        Return swOK                                                    ''~v210I~
+    End Function                                                       ''~v210I~
     '**************************************************                ''~v100R~
     Private Function getSelectedLangTag() As String                    ''~v100R~
         Dim tag As String = iOCR.getSelectedLangTag(cbLang, idxLang)    ''~v100R~
@@ -1106,9 +1160,9 @@ Public Class Form2
     Private Sub saveRotateAnyBMP(Pbmp As Bitmap)                       ''~va08I~
         Dim oldbmp = rotateAnyBMP                                      ''~va08I~
         rotateAnyBMP = CType(Pbmp.Clone(), Bitmap)                     ''~va08I~
-'*        Trace.W("saveRotateAnyBMP  new bmp Hashcode:" & rotateAnyBMP.GetHashCode()) ''~va08I~''+v152R~
+        '*        Trace.W("saveRotateAnyBMP  new bmp Hashcode:" & rotateAnyBMP.GetHashCode()) ''~va08I~''~v152R~
         If oldbmp IsNot Nothing Then                                   ''~va08I~
-'*            Trace.W("saveRotateAnyBMP dispose Hashcode:" & oldbmp.GetHashCode()) ''~va08I~''+v152R~
+            '*            Trace.W("saveRotateAnyBMP dispose Hashcode:" & oldbmp.GetHashCode()) ''~va08I~''~v152R~
             oldbmp.Dispose()                                           ''~va08I~
         End If                                                         ''~va08I~
         swWordBMP = False    'zoom use orgBMP                          ''~v152M~
@@ -1288,21 +1342,21 @@ Public Class Form2
         Ppext = ext                                                    ''~va04R~
         Return True                                                    ''~va04R~
     End Function                                                       ''~va04R~
-    Private Function getSaveFilterIndex(Poldidx as Integer,PstrFilter as String,Pext as String) as Integer''~va06I~
-    '* Bitmap|*.bmp|Jpeg|*.jpg|Png|*.png|Tiff|*.tif|Icon|*.ico|All Files|*.*"''~va06I~
-    	Dim idx as Integer=Poldidx                                     ''~va06I~
+    Private Function getSaveFilterIndex(Poldidx As Integer, PstrFilter As String, Pext As String) As Integer ''~va06I~
+        '* Bitmap|*.bmp|Jpeg|*.jpg|Png|*.png|Tiff|*.tif|Icon|*.ico|All Files|*.*"''~va06I~
+        Dim idx As Integer = Poldidx                                     ''~va06I~
         Dim fmt As Imaging.ImageFormat = iOCR.str2Fmt(Pext)            ''~va06I~
         Dim ext As String = iOCR.getImageFormat(fmt)                   ''~va06I~
-        Dim pos as Integer=PstrFilter.indexOf(ext)                     ''~va06I~
-        if pos>0                                                       ''~va06I~
-        	Dim idx2 as Integer=0                                      ''~va06I~
+        Dim pos As Integer = PstrFilter.IndexOf(ext)                     ''~va06I~
+        If pos > 0 Then                                                       ''~va06I~
+            Dim idx2 As Integer = 0                                      ''~va06I~
             For ii As Integer = 0 To pos                               ''~va06I~
                 If PstrFilter.Chars(ii) = "|"c Then                    ''~va06I~
                     idx2 += 1                                          ''~va06I~
                 End If                                                 ''~va06I~
             Next                                                       ''~va06I~
-            idx =CType((idx2+1)/2,Integer)                             ''~va06I~
-        end if                                                         ''~va06I~
-        return idx                                                     ''~va06I~
+            idx = CType((idx2 + 1) / 2, Integer)                             ''~va06I~
+        End If                                                         ''~va06I~
+        Return idx                                                     ''~va06I~
     End Function                                                       ''~va06I~
 End Class

@@ -1,5 +1,6 @@
-﻿'CID:''+v191R~:#72                             update#=  771;        ''~v191R~
+﻿'CID:''+v210R~:#72                             update#=  787;        ''~v210R~
 '************************************************************************************''~v002I~
+'v210 2021/08/06 support imagefile multi selection                     ''~v210I~
 'v191 2020/01/27 Help dialog "OK" did not work                         ''~v191I~
 'v190 2020/01/27 for VBOCR2 from VBI2KWRT 2.08 (drop kana translation) ''~v190I~
 'v181 2020/01/26 ReplaceKey:default F2                                 ''~v181I~
@@ -44,7 +45,7 @@ Imports System.IO
 Imports System.Threading                                               ''~7613I~''~v110I~''~v105I~
 
 Public Class Form1
-    Private Const VERSION = "v2.02"                                   ''~v122I~''~v128R~''~v133R~''~v168R~''~v174R~''~v181R~''+v191R~
+    Private Const VERSION = "v2.03"                                   ''~v122I~''~v128R~''~v133R~''~v168R~''~v174R~''~v181R~''~v191R~''+v210R~
     Private Declare Auto Function CreateCaret Lib "user32.dll" (hWnd As IntPtr, hBitmap As IntPtr, nWidth As Integer, nHeight As Integer) As Boolean ''~v067I~
     Private Declare Auto Function ShowCaret Lib "user32.dll" (hWnd As IntPtr) As Boolean ''~v067I~
     Private caretWidth As Integer = 2                                  ''~v067I~
@@ -138,6 +139,7 @@ Public Class Form1
     '   Private swSpecificItem As Boolean = False   'menuitem of Form2       ''~v112I~''~v114R~
     '   Private parmItem As ToolStripMenuItem                               ''~v112I~''~v114R~
     Private TBF As TBFocus                                             ''~v165I~
+    Private swForm2MRUImage As Boolean                                 ''~v210I~
 
     '**************************************************************************************''~v110I~
     Private Sub Form1_Activated(sender As System.Object, e As System.EventArgs) Handles Me.Activated ''~7412I~
@@ -171,7 +173,7 @@ Public Class Form1
             fmtBES = New FormatBES()                                         ''~7421I~
             '        swViewKatakana = dlgOptions.swKatakana                            ''~7501I~
             '        setkatakanaBtn()                                               ''~7501I~
-'           undoRedo = New ClassUndoRedo(ClassUndoRedo.OPT_KANATEXT, TBBES, ToolStripMenuItemUndo, ToolStripMenuItemRedo) ''~7513I~''~7521R~''~v190R~
+            '           undoRedo = New ClassUndoRedo(ClassUndoRedo.OPT_KANATEXT, TBBES, ToolStripMenuItemUndo, ToolStripMenuItemRedo) ''~7513I~''~7521R~''~v190R~
             '        addContextMenuHandler()                                        ''~7509I~
             TBBES.Font = createFont()                                      ''~7515I~
             '*          initialTitle = Me.Text                                           ''~7519I~''~v122R~
@@ -251,12 +253,16 @@ Public Class Form1
         OpenFileDialog1.FilterIndex = imageFilterIndex
         If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
             Dim fnm As String = OpenFileDialog1.FileName
-            insertMRUList(1, fnm)      '1:imagefile                     ''~7411R~''~7522R~
-            Dim basename As String = System.IO.Path.GetFileNameWithoutExtension(fnm)
-            imageFilename = basename
-            kanjiFilename = basename
-            imageFilterIndex = OpenFileDialog1.FilterIndex    'save for next open
-            openImageBox(fnm)
+            If OpenFileDialog1.FileNames.Length > 1 Then                        ''~v210I~
+                openImageBoxMultiSelect(OpenFileDialog1.FileNames)         ''~v210I~
+            Else                                                         ''~v210I~
+                insertMRUList(1, fnm)      '1:imagefile                     ''~7411R~''~7522R~
+                Dim basename As String = System.IO.Path.GetFileNameWithoutExtension(fnm)
+                imageFilename = basename
+                kanjiFilename = basename
+                imageFilterIndex = OpenFileDialog1.FilterIndex    'save for next open
+                openImageBox(fnm)
+            End If                                                       ''~v210I~
         End If
     End Sub
     Private Sub KanjiTextToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs)
@@ -542,6 +548,7 @@ Public Class Form1
             Dim item = DirectCast(sender, ToolStripMenuItem)                ''~7411I~
             Dim fnm As String                                              ''~7411I~
             fnm = item.Text                                                ''~7411I~
+            swForm2MRUImage = False                                      ''~v210I~
             If fnm.CompareTo(Rstr.MENU_NEWFILE) = 0 Then                          ''~7412R~''~7613R~''~7615R~
                 ImageToolStripMenuItem_Click(sender, e)                     ''~7412I~
             Else                                                           ''~7412I~
@@ -558,6 +565,7 @@ Public Class Form1
             Dim item = DirectCast(sender, ToolStripMenuItem)           ''~v112I~
             Dim fnm As String                                          ''~v112I~
             fnm = item.Text                                            ''~v112I~
+            swForm2MRUImage = True                                       ''~v210I~
             If fnm.CompareTo(Rstr.MENU_NEWFILE) = 0 Then               ''~v112I~
                 ImageToolStripMenuItem_Click(sender, e)                ''~v112I~
             Else                                                       ''~v112I~
@@ -634,8 +642,8 @@ Public Class Form1
                 item = ImageToolStripMenuItem                            ''~7411I~
             Case 2 'KanjiText                                          ''~7411I~
                 item = KanjiTextToolStripMenuItem                        ''~7411I~
-'           Case 3 'KanaText                                           ''~7411I~''~v190R~
-'               item = KanaTextToolStripMenuItem                       ''~v190R~
+                '           Case 3 'KanaText                                           ''~7411I~''~v190R~
+                '               item = KanaTextToolStripMenuItem                       ''~v190R~
             Case Else
                 item = Nothing
         End Select                                                     ''~7411I~
@@ -661,12 +669,12 @@ Public Class Form1
     Private Sub loadMRUList()                                          ''~7522R~
         loadMRUListSub(1)                                              ''~7522I~
         loadMRUListSub(2)                                              ''~7522I~
-'       loadMRUListSub(3)                                              ''~7522I~''~v190R~
+        '       loadMRUListSub(3)                                              ''~7522I~''~v190R~
     End Sub
     Private Sub setMRUListMenu()                                       ''~7617I~
         setMRUListMenu(1)                                              ''~7617I~
         setMRUListMenu(2)                                              ''~7617I~
-'       setMRUListMenu(3)                                              ''~7617I~''~v190R~
+        '       setMRUListMenu(3)                                              ''~7617I~''~v190R~
     End Sub                                                            ''~7617I~
     ''~7411I~
     Private Sub loadMRUListSub(Pcase As Integer)                       ''~7522R~
@@ -965,7 +973,7 @@ Public Class Form1
             txt = My.Resources.help_form1U8                                  ''~7430I~''~7501R~''~7613R~
         End If                                                         ''~7613I~
         '       MessageBox.Show(txt, initialTitle)                                      ''~7430I~''~7613R~''~7615R~''~7621R~
-'       MsgBox.ShowMsg(txt, initialTitle)                              ''~7621I~''~v191R~
+        '       MsgBox.ShowMsg(txt, initialTitle)                              ''~7621I~''~v191R~
         MessageBox.Show(txt, initialTitle)                             ''~v191I~
     End Sub                                                            ''~7430I~
 
@@ -1470,4 +1478,15 @@ Public Class Form1
     Public Sub restoreSelection()                                      ''~v174I~
         TBF.restoreSelection()                                         ''~v174I~
     End Sub                                                            ''~v174I~
+    '*************************************************************     ''~v210I~
+    Private Sub openImageBoxMultiSelect(Pfnms() As String)             ''~v210I~
+        Dim formMS As FormMS = Nothing                                   ''~v210R~
+        Try                                                            ''~v210I~
+            Dim swNew As Boolean = newForm(formMS, formMS)             ''~v210R~
+            formMS.setImage(Pfnms, swForm2MRUImage)                    ''~v210R~
+            showForm(formMS, swNew)                                    ''~v210R~
+        Catch ex As Exception                                          ''~v210I~
+            ReadError(Pfnms(0), ex)                                     ''~v210I~
+        End Try                                                        ''~v210I~
+    End Sub                                                            ''~v210I~
 End Class

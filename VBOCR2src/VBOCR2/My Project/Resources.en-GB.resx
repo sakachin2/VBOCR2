@@ -444,4 +444,7 @@
   <data name="STR_PASTE" xml:space="preserve">
     <value>Paste</value>
   </data>
+  <data name="STR_MULTI_SELECT_FILE" xml:space="preserve">
+    <value>Extract multiple files all at once</value>
+  </data>
 </root>
