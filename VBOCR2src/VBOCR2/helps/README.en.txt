@@ -1,9 +1,10 @@
 (UTF8 encoding)
 
 *********************************************************************************************
-V2.03 : 2021/08/09 
+V2.04 : 2021/08/09 
 
 - Added the function that extract from multiple image files at once.
+- (Bug)Change Language of Setup option was not available.
 *********************************************************************************************
 V2.02 : 2021/06/05 
 

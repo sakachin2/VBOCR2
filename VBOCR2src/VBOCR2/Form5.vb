@@ -1,5 +1,6 @@
-﻿'*CID:''+v198R~:#72                          update#=  199;          ''~v198R~
+﻿'*CID:''+v211R~:#72                          update#=  201;          ''+v211R~
 '************************************************************************************''~v030I~
+'v211 2021/08/09 (BUG)Release version hide language selection of configure dialog''~v198I~
 'v198 2021/06/02 split header/footer as setting option                 ''~v198I~
 'v190 2020/01/27 for VBOCR2 from VBI2KWRT 2.08 (drop kana translation) ''~v181I~
 'v181 2020/01/26 ReplaceKey:default F2                                 ''~v181I~
@@ -72,8 +73,8 @@ Public Class FormOptions
     Private samePrintFont As Boolean                                   ''~7515I~
     Private swInit As Boolean = False                                    ''~7614I~
     Public swFontChangedScr As Boolean                                ''~7515I~
-    Public swLangChanged As Boolean = False                            ''~7618I~''+v198R~
-    Public Shared swSplitHeader As Boolean                             ''+v198I~
+    Public swLangChanged As Boolean = False                            ''~7618I~''~v198R~
+    Public Shared swSplitHeader As Boolean                             ''~v198I~
 
     '************************************************************************''~v110I~
     Sub New()
@@ -665,15 +666,15 @@ Public Class FormOptions
     End Sub                                                            ''~v110I~
     '********************************************************************************''~v110I~
     Private Sub hideNonDebug()                                         ''~v110I~
-#If Not DEBUG Then                                                          ''~v110I~
-        GroupBoxLang.visible=False                                     ''~v110I~
-        RBLangEN.Visible=False                                         ''~v110I~
-        RBLangJP.Visible=False                                         ''~v110I~
-        RBLangDefault.Visible=False                                    ''~v110I~
-        RBLangEN.Enabled = False                                          ''~v110I~
-        RBLangJP.Enabled = False                                          ''~v110I~
-        RBLangDefault.Enabled=False                                     ''~v110I~
-#End If                                                                ''~v110I~
+'*#If Not DEBUG Then                                                          ''~v110I~''+v211R~
+'*        GroupBoxLang.visible=False                                     ''~v110I~''+v211R~
+'*        RBLangEN.Visible=False                                         ''~v110I~''+v211R~
+'*        RBLangJP.Visible=False                                         ''~v110I~''+v211R~
+'*        RBLangDefault.Visible=False                                    ''~v110I~''+v211R~
+'*        RBLangEN.Enabled = False                                          ''~v110I~''+v211R~
+'*        RBLangJP.Enabled = False                                          ''~v110I~''+v211R~
+'*        RBLangDefault.Enabled=False                                     ''~v110I~''+v211R~
+'*#End If                                                                ''~v110I~''+v211R~
     End Sub                                                            ''~v110I~
     '********************************************************************************''~v163I~
     Private Sub dialogAddString()                                      ''~v163I~
