@@ -18,6 +18,7 @@ VBOCR2 GitHub
     set Version
         change version My Project\AssemblyInfo.vb, SetupProject\Product.wxs:Vesion, Minimum,Maximum
         Form1 Const VERSION
+        helps\registration.txt
     release build
     build SetupVBOCR2      -->SetupProject\bin\Release\SetupVBOCR2.msi
 	bat\vbocr2upsrc.bat

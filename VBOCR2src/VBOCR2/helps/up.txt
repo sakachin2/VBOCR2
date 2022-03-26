@@ -22,7 +22,7 @@ VBOCR2 GitHub
 //  build SetupVBOCR         -->SetupVBOCR\bin\Release\SetupVBOCR.msi
     build SetupVBOCR         -->MSVS2017CProjects\VBOCR2\SetupProject\bin\Release\SetupVBOCR2.msi
 	bat\vbocr2upsrc.bat
-        msvs2017CProjects\VBOCR -> msvs2017CProjects\Release\VBOCR2src\VBOCRsrc2\ and msvs2017CProjects\ReleaseVBOCR2src.zip
+        msvs2017CProjects\VBOCR -> msvs2017CProjects\Release\VBOCR2src\VBOCRsrc2\ and msvs2017CProjects\Release\VBOCR2src.zip
 
     bat\vbocr2gitup.bat
         (after vbocr2upsrc.bat)
