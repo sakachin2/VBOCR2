@@ -1,6 +1,7 @@
-﻿'CID:''+v210R~:#72                             update#=  687;        ''+v210R~
+﻿'CID:''+v220R~:#72                             update#=  697;        ''~v221R~''+v220R~
 '************************************************************************************''~v026I~''~v100I~
-'v210 2021/08/06 support imagefile multi selection                     ''+v210I~
+'v220 2022/03/26 (BUG)crash by "invalid index" at getHeaderBottomY     ''~v220I~
+'v210 2021/08/06 support imagefile multi selection                     ''~v210I~
 'v201 2021/06/04 drop v200. MS-API works for english 2 page it self. Bug reason may be charH/charW setting for multi char on a OcrWord(occurs for english text)''~v201I~
 '                drop droplist down list but leave horizontal2 logic   ''~v201I~
 'v200 2021/06/04 support layout hrizontal 2 page for English           ''~v200I~
@@ -90,7 +91,7 @@ Public Class Cocr
     ''~v106I~
     Private clipRect As Rectangle                                      ''~v106I~
     Private swRectBMP As Boolean                                       ''~v106I~
-    '*  Private bmpRect As Bitmap                                          ''~v106I~''+v210R~
+    '*  Private bmpRect As Bitmap                                          ''~v106I~''~v210R~
     Private scaleNew As Double                                         ''~v106I~
     Private lineStyle As Integer()                                     ''~v138I~
     '*  Private jpWriting() As String = {"ja", "日本語", "ja", "右縦書き", "ja", "左縦書き", "ja", "横書き右", "ja", "横書き左"} ''~v141I~''~v192R~
@@ -254,7 +255,7 @@ Public Class Cocr
     '* set clip box info before extact                                 ''~v106I~
     Public Sub setRect(PswRectBMP As Boolean, PbmpRect As Bitmap, PscaleNew As Double, PclipRect As Rectangle) ''~v106I~
         swRectBMP = PswRectBMP                                         ''~v106I~
-        '*      bmpRect = PbmpRect                                             ''~v106I~''+v210R~
+        '*      bmpRect = PbmpRect                                             ''~v106I~''~v210R~
         scaleNew = PscaleNew                                           ''~v106I~
         clipRect = PclipRect                                           ''~v106I~
         '*Trace.W("iOCR:setrect cliprect X=" & clipRect.X & ",Y=" & clipRect.Y & ",W=" & clipRect.Width & ",H=" & clipRect.Height) ''~v155R~''~v192R~''~v201R~
@@ -373,6 +374,7 @@ Public Class Cocr
     '*************************************************************
     Private Async Function extractTextAsync(Pfnm As String, Ptag As String) As Task(Of Boolean)
         Try
+            '*Trace.setOn()       'TODO test                           ''+v220R~
             softBitmap = Await LoadImage(Pfnm)
             If softBitmap Is Nothing Then
                 Return False
@@ -481,7 +483,7 @@ Public Class Cocr
     Public Function markWords(Pbmp As Bitmap) As Boolean
         '** avoid exceotion:Indexed Pixel at Graphics.FromImage for mono color image
         Dim xx0 = 0, yy0 = 0                                               ''~v139I~
-        Trace.setOn()                                                  ''~va05R~
+        '*Trace.setOn()                                                  ''~va05R~''+v220R~
         Try
             '********************
             '*Trace.W("Class10:MarkWords swRectBMP=" & swRectBMP & ",swGetHeader=" & swGetHeader & ",headerBottomY=" & headerBottomY) ''~v196I~''~v201R~
@@ -2283,7 +2285,7 @@ Public Class Cocr
         lineno = 0                                                       ''~v197I~
         '* search min top ****************************************     ''~v197I~''~v198R~
         For Each line As OcrLine In Plist                              ''~v197I~
-            '*Trace.W("Class10:searchTop lineNo=" & lineno)              ''~v197I~''~v201R~
+            '*Trace.W("Class10:searchTop lineNo=" & lineno & ",text=" & line.Text) ''~v221R~''+v220R~
             '*printLineRect("getHeaderBottomY", line)                    ''~v197I~''~v201R~
             '*          lineStyle = getLineStyle(line, False) '*chk text in word=False''~v197I~''~v201R~
             lineStyle = getLineStyle(line, True) '*chk text in word=False''~v201I~
@@ -2296,18 +2298,19 @@ Public Class Cocr
                 height = brect.Height                                    ''~v197I~
                 bottom = top + height                                  ''~v197I~
             End If                                                     ''~v197I~
+            '*Trace.W("Class10:searchTop lineNo=" & lineno & ",top=" & top & ",bottom=" & bottom & ",height=" & height)''+v220R~
             LSs(lineno) = lineStyle                                      ''~v197I~
             Y1s(lineno) = top                                             ''~v197I~
             Y2s(lineno) = bottom                                          ''~v197I~
             HHs(lineno) = height                                         ''~v197I~
             If top < topMin Or topMin = 0.0 Then                                ''~v197I~
                 lineNoTop = lineno                                       ''~v197M~
-                '*Trace.W("Class10:getHeaderBottomY new topMin=" & top & ",old topMin=" & topMin & "linenoTop=" & lineNoTop) ''~v197I~''~v201R~
+                '*Trace.W("Class10:getHeaderBottomY new topMin=" & top & ",old topMin=" & topMin & ",linenoTop=" & lineNoTop) ''~v197I~''~v201R~''~v220R~''~v221R~''+v220R~
                 topMin = top                                             ''~v197I~
                 heightTopMax = height                                   ''~v197I~
             ElseIf top = topMin Then                                           ''~v197I~
                 If height > heightTopMax Then '*select taller if same top Y   ''~v197I~
-                    '*Trace.W("Class10:getHeaderBottomY new heightTop=" & height & ",old=" & heightTop & ",linenoTop=" & lineNoTop) ''~v197R~''~v201R~
+                    '*Trace.W("Class10:getHeaderBottomY new heightTop=" & height & ",old=" & heightTop & ",linenoTop=" & lineNoTop) ''~v197R~''~v201R~''+v220R~
                     heightTopMax = height                                ''~v197I~
                     lineNoTop = lineno                                 ''~v197I~
                 End If                                                 ''~v197I~
@@ -2318,7 +2321,7 @@ Public Class Cocr
         bottomTop = Y2s(lineNoTop)                                        ''~v197I~
         heightTop = HHs(lineNoTop)                                       ''~v197I~
         floorTop = bottomTop + heightTop                                   ''~v197I~
-        '*Trace.W("Class10:getHeaderBottomY Final lineNoTop=" & lineNoTop & ",topTop=" & topTop & ",bottomTop=" & bottomTop & ",heightTop=" & heightTop & ",floorTop=" & floorTop & ",heightTopMax=" & heightTopMax) ''~v197R~''~v201R~
+        '*Trace.W("Class10:getHeaderBottomY Final lineNoTop=" & lineNoTop & ",topTop=" & topTop & ",bottomTop=" & bottomTop & ",heightTop=" & heightTop & ",floorTop=" & floorTop & ",heightTopMax=" & heightTopMax) ''~v197R~''~v201R~''+v220R~
         '* get max bottom of top word *****************************    ''~v197I~''~v198R~
         swHeader = True                                                  ''~v197I~
         bottomTopMax = bottomTop                                         ''~v197I~
@@ -2329,45 +2332,51 @@ Public Class Cocr
             top = Y1s(lineno)                                           ''~v197I~
             bottom = Y2s(lineno)                                        ''~v197I~
             height = HHs(lineno)                                         ''~v197I~
-            '*Trace.W("Class10:getHeaderBottomY lineStyle=0x" & Hex(lineStyle) & ",top=" & top & ",bottom=" & bottom & ",floorTop=" & floorTop) ''~v197R~''~v201R~
+            '*Trace.W("Class10:getHeaderBottomY lineStyle=0x" & Hex(lineStyle) & ",top=" & top & ",bottom=" & bottom & ",floorTop=" & floorTop) ''~v197R~''~v201R~''+v220R~
             If top < bottomTop Then '*top may be on header line               ''~v197I~
-                '*Trace.W("Class10:getHeaderBottomY top=" & top & " < bottomTop=" & bottomTop & ",bottomTopMax=" & bottomTopMax) ''~v197R~''~v201R~
+                '*Trace.W("Class10:getHeaderBottomY top=" & top & " < bottomTop=" & bottomTop & ",bottomTopMax=" & bottomTopMax) ''~v197R~''~v201R~''+v220R~
                 If bottom > bottomTopMax Then                                 ''~v197I~
-                    '*Trace.W("Class10:getHeaderBottomY new bottomTopMax=" & bottom & ",old=" & bottomTopMax) ''~v197R~''~v201R~
+                    '*Trace.W("Class10:getHeaderBottomY new bottomTopMax=" & bottom & ",old=" & bottomTopMax) ''~v197R~''~v201R~''+v220R~
                     bottomTopMax = bottom                                ''~v197I~
                 End If                                                 ''~v197I~
                 '*              floor = bottom + height * 2                            ''~v197R~
                 floor = bottom + height * RATE_SPACE_HEADER            ''~v197I~
-                '*Trace.W("Class10:getHeaderBottomY floor=" & floor & ",bottom=" & bottom & ",height=" & height & ",floorTopMax=" & floorTopMax) ''~v197I~''~v201R~
+                '*Trace.W("Class10:getHeaderBottomY floor=" & floor & ",bottom=" & bottom & ",height=" & height & ",floorTopMax=" & floorTopMax) ''~v197I~''~v201R~''+v220R~
                 If floor > floorTopMax Then                            ''~v197M~
                     floorTopMax = floor                                ''~v197M~
-                    '*Trace.W("Class10:getHeaderBottomY new floorTopMax=" & floorTopMax) ''~v197M~''~v201R~
+                    '*Trace.W("Class10:getHeaderBottomY new floorTopMax=" & floorTopMax) ''~v197M~''~v201R~''+v220R~
                 End If                                                  ''~v197I~
             Else
                 If top < floorTop Then                                 ''~v197R~
-                    '*Trace.W("Class10:getHeaderBottomY Failed top=" & top & " < floorTop=" & floorTop) ''~v197R~''~v201R~
+                    '*Trace.W("Class10:getHeaderBottomY Failed top=" & top & " < floorTop=" & floorTop) ''~v197R~''~v201R~''+v220R~
                     swHeader = False                                   ''~v197R~
                     Exit For                                           ''~v197R~
                 End If                                                 ''~v197R~
             End If ''~v197I~
             lineno += 1                                                  ''~v197I~
         Next                                                           ''~v197I~
-        '*Trace.W("Class10:getHeaderFinal floorTopMax=" & floorTopMax & ",bottomTopMax=" & bottomTopMax) ''~v197I~''~v201R~
+        '*Trace.W("Class10:getHeaderFinal floorTopMax=" & floorTopMax & ",bottomTopMax=" & bottomTopMax) ''~v197I~''~v201R~''+v220R~
         If swHeader Then                                                    ''~v197I~
             '* chk vertical line 2nd word is under the floor **********    ''~v198I~
             lineno = 0                                                    ''~v197I~
             For Each line As OcrLine In Plist                          ''~v197I~
+                '*Trace.W("Class10:getHeaderBottomY line.text=" & line.Text) ''~v220I~''~v221R~''+v220R~
+                '*Trace.W("Class10:getHeaderBottomY line.word.count=" & line.Words.Count)''+v220R~
                 '*printLineRect("getHeaderBottomY", line)                ''~v197I~''~v201R~
                 lineStyle = LSs(lineno)                                  ''~v197I~
                 top = Y1s(lineno)                                       ''~v197I~
                 bottom = Y2s(lineno)                                    ''~v197I~
                 height = HHs(lineno)                                     ''~v197I~
-                '*Trace.W("Class10:getHeaderBottomY lineStyle=0x" & Hex(lineStyle) & ",top=" & top & ",bottom=" & bottom) ''~v197R~''~v201R~
+                '*Trace.W("Class10:getHeaderBottomY lineStyle=0x" & Hex(lineStyle) & ",top=" & top & ",bottom=" & bottom) ''~v197R~''~v201R~''+v220R~
                 If lineStyle <> LS_VERTICAL Then                          ''~v197I~
                     Continue For                                       ''~v197I~
                 End If                                                 ''~v197I~
+                If line.Words.Count <= 1 Then                               ''~v220I~
+                    '*Trace.W("Class10:getHeaderBottomY ignore by Word.count<=1 lineno=" & lineno)''~v221R~''+v220R~
+                    Continue For                                       ''~v220I~
+                End If                                                 ''~v220I~
                 brect1 = line.Words.Item(1).BoundingRect               ''~v197I~
-                '*Trace.W("Class10:getHeaderBottomY 2ndword top=" & brect1.Y & ",floorTopMax=" & floorTopMax) ''~v197I~''~v201R~
+                '*Trace.W("Class10:getHeaderBottomY 2ndword top=" & brect1.Y & ",floorTopMax=" & floorTopMax) ''~v197I~''~v201R~''+v220R~
                 If brect1.Y < floorTopMax Then                              ''~v197I~
                     Dim swOK = False                                     ''~v197I~
                     If lineStyle = LS_VERTICAL And line.Words.Count <= 3 Then 'special consideration for Japanese char recognized as 2 vertical word''~v197I~
@@ -2377,10 +2386,10 @@ Public Class Cocr
                         If floor <= floorTopMax Then                          ''~v197I~
                             swOK = True                                  ''~v197I~
                         End If                                         ''~v197I~
-                        '*Trace.W("Class10:getHeaderBottomY 2 word vertical chk swOK=" & swOK & "height=" & height & ",floor=" & floor & ",floorTopMax=" & floorTopMax) ''~v197I~''~v201R~
+                        '*Trace.W("Class10:getHeaderBottomY 2 word vertical chk swOK=" & swOK & "height=" & height & ",floor=" & floor & ",floorTopMax=" & floorTopMax) ''~v197I~''~v201R~''+v220R~
                     End If                                             ''~v197I~
                     If Not swOK Then                                   ''~v197R~
-                        '*Trace.W("Class10:getHeaderBottomY Failed 2ndword top=" & brect1.Y & " < floorTopMax=" & floorTopMax) ''~v197R~''~v201R~
+                        '*Trace.W("Class10:getHeaderBottomY Failed 2ndword top=" & brect1.Y & " < floorTopMax=" & floorTopMax) ''~v197R~''~v201R~''+v220R~
                         swHeader = False                               ''~v197R~
                         Exit For                                       ''~v197R~
                     End If                                             ''~v197R~
@@ -2393,7 +2402,7 @@ Public Class Cocr
             '*                      bottomY = CType((bottomTopMax+floorTopMax)/2, Integer)''~v197R~
             bottomY = CType(floorTopMax - 1, Integer)                  ''~v197R~
         End If                                                         ''~v197I~
-        '*Trace.W("Class10:getHeaderBottomY return swHeader=" & swHeader & ",bottomY=" & bottomY & ",floorTopMax=" & floorTopMax & ",bottomTopMax=" & bottomTopMax) ''~v197R~''~v201R~
+        '*Trace.W("Class10:getHeaderBottomY return swHeader=" & swHeader & ",bottomY=" & bottomY & ",floorTopMax=" & floorTopMax & ",bottomTopMax=" & bottomTopMax) ''~v197R~''~v201R~''+v220R~
         Return bottomY                                                 ''~v197I~
     End Function                                                       ''~v197I~
 #End If                                                                ''~v197I~

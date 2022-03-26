@@ -1,3 +1,6 @@
+V2.0.5 : 2022/03/26  gitup         *************************************************
+'v220 2022/03/26 (BUG)crash by "invalid index" at getHeaderBottomY
+'                class10
 V2.0.4 : 2021/08/09  gitup         *************************************************
 'v211 2021/08/09 (BUG)Release version hide language selection of configure dialog
 '                Form5

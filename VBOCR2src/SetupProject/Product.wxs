@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--  codepage,65001:utf8, 932:shift_jis, 28591:iso8859-1; 1252:ansi latin1   LCID 1041:ja, 1033:en-us            -->
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-    <Product Id="3B462A96-01F7-43E0-BA99-704021EB2B54" Name="VBOCR2" Language="1033" Version="2.0.4" Manufacturer="sakachin2" UpgradeCode="7d2e310c-2317-4f4a-b957-17575752ac49">
+    <Product Id="3B462A96-01F7-43E0-BA99-704021EB2B54" Name="VBOCR2" Language="1033" Version="2.0.5" Manufacturer="sakachin2" UpgradeCode="7d2e310c-2317-4f4a-b957-17575752ac49">
         <Package InstallerVersion="300" Compressed="yes" Comments="MSI Installer for VBOCR2" Id="*" Description="Tool of extract text from image file using Windows10 OCR Library" />
         <Upgrade Id="172058F5-5089-482D-A077-84DC8CF9F778">
-            <UpgradeVersion OnlyDetect="yes" Property="NEWERFOUND" Minimum="2.0.4" IncludeMinimum="no" />
-            <UpgradeVersion OnlyDetect="no" Property="PREVIOUSFOUND" Minimum="1.0.0" IncludeMinimum="yes" Maximum="2.0.4" IncludeMaximum="no" />
+            <UpgradeVersion OnlyDetect="yes" Property="NEWERFOUND" Minimum="2.0.5" IncludeMinimum="no" />
+            <UpgradeVersion OnlyDetect="no" Property="PREVIOUSFOUND" Minimum="1.0.0" IncludeMinimum="yes" Maximum="2.0.5" IncludeMaximum="no" />
         </Upgrade>
         <Media Id="1" Cabinet="vbocr2.cab" EmbedCab="yes" />
         <Directory Id="TARGETDIR" Name="SourceDir">

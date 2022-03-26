@@ -1,6 +1,10 @@
 (UTF8 encoding)
 
 *********************************************************************************************
+V2.05 : 2022/03/26 
+
+- (Bug)"Index error" message may be issued when extracting.
+*********************************************************************************************
 V2.04 : 2021/08/09 
 
 - Added the function that extract from multiple image files at once.
